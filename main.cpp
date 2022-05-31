@@ -20,7 +20,7 @@ int main()
 
     float width = 795, height = 720, renderWidth = 1280, renderHeight = 720, xOriginal = 0, yOriginal = 0,
     CenterX = (width/2), CenterY = (height/2);
-    double Scaler = 10, PanX = 0, PanY = 0;
+    double Scaler = 10, PanX, PanY;
 
 
     bool hold = false, isGridVisible = true, isThemeBlack = true;
@@ -483,6 +483,7 @@ int main()
             Line[0].color = Color::Red;
             Line[1].color = Color::Red;
         }
+
 
 
 

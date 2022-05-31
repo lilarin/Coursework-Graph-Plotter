@@ -676,23 +676,23 @@ SFML/Config.hpp
 
 C:/SFML/include/SFML/Window/WindowStyle.hpp
 
-C:/Users/User/Desktop/C/Coursework/button.h
+C:/Users/User/Desktop/Coursework/Coursework/button.h
 unistd.h
 -
 
-C:/Users/User/Desktop/C/Coursework/main.cpp
+C:/Users/User/Desktop/Coursework/Coursework/main.cpp
 SFML/Graphics.hpp
 -
 textbox.h
-C:/Users/User/Desktop/C/Coursework/textbox.h
+C:/Users/User/Desktop/Coursework/Coursework/textbox.h
 string
 -
 button.h
-C:/Users/User/Desktop/C/Coursework/button.h
+C:/Users/User/Desktop/Coursework/Coursework/button.h
 shunting_yard.h
-C:/Users/User/Desktop/C/Coursework/shunting_yard.h
+C:/Users/User/Desktop/Coursework/Coursework/shunting_yard.h
 
-C:/Users/User/Desktop/C/Coursework/shunting_yard.h
+C:/Users/User/Desktop/Coursework/Coursework/shunting_yard.h
 iostream
 -
 string
@@ -704,7 +704,7 @@ queue
 cmath
 -
 
-C:/Users/User/Desktop/C/Coursework/textbox.h
+C:/Users/User/Desktop/Coursework/Coursework/textbox.h
 iostream
 -
 sstream

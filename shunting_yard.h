@@ -119,10 +119,6 @@ vector <Token> parse(const string& expression)
             sign.value = character;
             tokens.push_back(sign);
         }
-        else
-        {
-            cout << "pizdes" << endl;
-        }
     }
 
     Token token;
