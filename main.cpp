@@ -4,7 +4,18 @@
 #include "button.h"
 #include "shunting_yard.h"
 
-string intToString(double number) {
+
+float roundValue(float var)
+{
+    // 37.66666 * 100 =3766.66
+    // 3766.66 + .5 =3767.16    for rounding off value
+    // then type cast to int so value is 3767
+    // then divided by 100 so the value converted into 37.67
+    float value = (int)(var * 100 + .5);
+    return (float)value / 100;
+}
+
+string intToString(float number) {
     stringstream ss;             //create a stringstream
     string str;
     ss << number;                //add number to the stream
@@ -12,11 +23,12 @@ string intToString(double number) {
     return str;                  //return the string
 }
 
-
 int main()
 {
 //    string equation = "0.5^x-(x+(-2))^2+1";
-    string equation = "10^6";
+    string equation,cursorPosition;
+
+    round(2.654);
 
     float width = 795, height = 720, renderWidth = 1280, renderHeight = 720, xOriginal = 0, yOriginal = 0,
     CenterX = (width/2), CenterY = (height/2);
@@ -33,9 +45,6 @@ int main()
 
     window.setFramerateLimit(60);
 
-
-    ContextSettings settings;
-    settings.antialiasingLevel = 8;
 
 
     Button button1("/textures/powX.png",{(renderWidth-468),70});
@@ -75,6 +84,10 @@ int main()
     RectangleShape bounds(Vector2f(renderWidth-width, renderHeight));
     bounds.setPosition({width,0});
 
+    CircleShape Cursor;
+
+    Cursor.setRadius(4);
+
 
     Font font;
     font.loadFromFile("C:/arial.ttf");
@@ -91,6 +104,7 @@ int main()
     text.setFont(font);
     text.setCharacterSize(24);
 
+    VertexArray Graph(LinesStrip, 2);
 
     while (window.isOpen())
     {
@@ -98,9 +112,6 @@ int main()
         while (window.pollEvent(event))
         {
             switch (event.type) {
-//                case Event::MouseLeft:
-//                    button1.setColor(sf::Color(255, 255, 255));
-//                    button2.setColor(sf::Color(255, 255, 255));
                 case Event::Closed:
                     window.close();
                     break;
@@ -126,9 +137,15 @@ int main()
                         CenterX = width/2;
                         CenterY = height/2;
                     }
-                    if (event.key.code == Keyboard::Z) {
-                        if (isThemeBlack) isThemeBlack = false;
-                        else isThemeBlack = true;
+                    if (event.key.code == sf::Keyboard::Up) {
+                        if(Scaler == -1 && event.mouseWheel.delta >=1) //will not allow Scaler to become 0
+                            Scaler = 1;
+                        Scaler+=Scaler*0.1;
+                    }
+                    if (event.key.code == sf::Keyboard::Down) {
+                        if(Scaler == 1 && event.mouseWheel.delta <=-1)      //will not allow Scaler to become 0
+                            Scaler = -1;
+                        Scaler-=Scaler*0.1;
                     }
                 case Event::MouseButtonPressed:
                     if (event.mouseButton.button == Mouse::Right) {
@@ -227,7 +244,6 @@ int main()
                             }
                         }
 
-
                         if ( button29.getGlobalBounds().contains( mousePosF )) {
                             if (isThemeBlack) {
                                 button29.setTexture("/textures/cross.png");
@@ -252,6 +268,7 @@ int main()
                     }
                     break;
                     {case Event::MouseMoved:
+
                         if(hold) {
                             PanX = event.mouseMove.x - xOriginal;
                             PanY = event.mouseMove.y - yOriginal;
@@ -262,6 +279,9 @@ int main()
                         }
                         Vector2i mousePos = Mouse::getPosition( window );
                         Vector2f mousePosF( static_cast<float>( mousePos.x ), static_cast<float>( mousePos.y ) );
+
+                        Vector2f CursorPos( static_cast<float>( mousePos.x - 3 ), static_cast<float>( mousePos.y - 3) );
+                        Cursor.setPosition(CursorPos);
 
                         if ( button1.getGlobalBounds().contains( mousePosF )) {
                             button1.setColor( sf::Color( 183, 183, 185 ) );
@@ -371,6 +391,7 @@ int main()
 
 
         VertexArray Line(LinesStrip, 2);
+
         if (isThemeBlack) {
             Line[0].color = {255, 255, 255};
             Line[1].color = {255, 255, 255};
@@ -476,25 +497,46 @@ int main()
         }
 
         if (isThemeBlack) {
-            Line[0].color = {75, 251, 75};
-            Line[1].color = {75, 251, 75};
+            Graph[0].color = {75, 251, 75};
+            Graph[1].color = {75, 251, 75};
+            Cursor.setFillColor({75, 251, 75});
         }
         else {
-            Line[0].color = Color::Red;
-            Line[1].color = Color::Red;
+            Graph[0].color = Color::Red;
+            Graph[1].color = Color::Red;
+            Cursor.setFillColor(Color::Red);
         }
 
+        if (equation.length() != 0) {
+            for(double x = lastNegative; x < lastPositive; x += 1/Scaler)                  //draws the graph in increments of 0.1
+            {
+                double x_ = x;
+                Graph[0].position = Vector2f((x*Scaler+CenterX),(evaluate(equation,x_)*Scaler*-1+CenterY));
+                x_ = x+1/Scaler;
+                Graph[1].position = Vector2f(((x+1/Scaler)*Scaler+CenterX),(evaluate(equation,x_)*Scaler*-1+CenterY));
+
+                window.draw(Graph);
 
 
+                Vector2i mousePos = Mouse::getPosition( window );
+                Vector2f mousePosF( static_cast<float>( mousePos.x + 20 ), static_cast<float>( mousePos.y ) );
 
-        for(double x = lastNegative; x < lastPositive; x += 1/Scaler)                  //draws the graph in increments of 0.1
-        {
-            double x_ = x;
-            evaluate(equation,x_);
-            Line[0].position = sf::Vector2f((x*Scaler+CenterX),(evaluate(equation,x_)*Scaler*-1+CenterY));
-            x_ = x+1/Scaler;
-            Line[1].position = sf::Vector2f(((x+1/Scaler)*Scaler+CenterX),(evaluate(equation,x_)*Scaler*-1+CenterY));
-            window.draw(Line);
+                if ( Cursor.getGlobalBounds().contains(Graph[0].position) ) {
+
+                    text.setPosition(mousePosF);
+
+                    cursorPosition = "( ";
+                    cursorPosition += intToString(roundValue((mousePos.x-width/2)/Scaler));
+                    cursorPosition += " , ";
+                    cursorPosition += intToString(roundValue((-mousePos.y+height/2)/Scaler));
+                    cursorPosition += " )";
+
+                    text.setString(cursorPosition);
+                    window.draw(text);
+                    window.draw(Cursor);
+
+                }
+            }
         }
 
 
@@ -510,6 +552,7 @@ int main()
         text.setString("Grid on the plane");
         text.setPosition({width+100,height-100});
         window.draw(text);
+
 
         button1.drawButton(window);
         button2.drawButton(window);
