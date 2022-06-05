@@ -15,7 +15,6 @@ using namespace sf;
 using namespace std;
 
 
-
 class Textbox {
 public:
     Textbox(int size, Color color, bool sel) {
@@ -37,27 +36,6 @@ public:
     void setPosition(Vector2f pos) {
         textbox.setPosition(pos);
     }
-
-    void setLimit(bool status) {
-        hasLimit = status;
-    }
-
-    void setLimit(bool status, int lim) {
-        hasLimit = status;
-        limit = lim;
-    }
-
-//    void setSelected(bool sel) {
-//        isSelected = sel;
-//        if (!sel) {
-//            string str = text.str();
-//            string newStr = "";
-//            for (int i = 0; i < str.length()-1; i++) {
-//                newStr += str[i];
-//            }
-//            textbox.setString(newStr);
-//        }
-//    }
 
     string getText() {
         return text.str();
@@ -85,7 +63,7 @@ public:
             }
         }
     }
-    void typedButton(string inputButton) {
+    void typedButton(const string& inputButton) {
         string charTyped = inputButton;
         for (int i=0; i<inputButton.length(); i++) {
             if (charTyped[i] < 128) {
@@ -137,7 +115,7 @@ private:
 
     void deleteLastChar() {
         string str = text.str();
-        string newStr = "";
+        string newStr;
         for (int i = 0; i < str.length()-1; i++) {
             newStr += str[i];
         }

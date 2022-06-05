@@ -2,7 +2,8 @@
 // Created by User on 29.04.2022.
 //
 
-
+#ifndef MAIN_CPP_SHUNTING_YARD_H
+#define MAIN_CPP_SHUNTING_YARD_H
 #include <iostream>
 #include <string>
 #include <stack>
@@ -32,7 +33,7 @@ vector <Token> parse(const string& expression)
     string digits;
     string letters;
 
-    for (unsigned int i = 0; i < expression.size(); ++i)
+    for (int i = 0; i < expression.size(); ++i)
     {
         char character = expression[i];
 
@@ -47,14 +48,14 @@ vector <Token> parse(const string& expression)
         else if (character == ',')
         {
             Token sign;
-            if (digits != "")
+            if (!digits.empty())
             {
                 sign.type = Token_type::NUMBER;
                 sign.value = digits;
                 tokens.push_back(sign);
                 digits = "";
             }
-            if (letters != "")
+            if (!letters.empty())
             {
                 sign.type = Token_type::CONSTANT;
                 sign.value = letters;
@@ -66,14 +67,14 @@ vector <Token> parse(const string& expression)
         else if ((character == '+') || (character == '-') || (character == '*') || (character == '/') || (character == '^'))
         {
             Token sign;
-            if (digits != "")
+            if (!digits.empty())
             {
                 sign.type = Token_type::NUMBER;
                 sign.value = digits;
                 tokens.push_back(sign);
                 digits = "";
             }
-            if (letters != "")
+            if (!letters.empty())
             {
                 sign.type = Token_type::CONSTANT;
                 sign.value = letters;
@@ -87,7 +88,7 @@ vector <Token> parse(const string& expression)
         else if (character == '(')
         {
             Token bracket;
-            if (letters != "")
+            if (!letters.empty())
             {
                 bracket.type = Token_type::FUNCTION;
                 bracket.value = letters;
@@ -101,14 +102,14 @@ vector <Token> parse(const string& expression)
         else if (character == ')')
         {
             Token sign;
-            if (digits != "")
+            if (!digits.empty())
             {
                 sign.type = Token_type::NUMBER;
                 sign.value = digits;
                 tokens.push_back(sign);
                 digits = "";
             }
-            if (letters != "")
+            if (!letters.empty())
             {
                 sign.type = Token_type::CONSTANT;
                 sign.value = letters;
@@ -122,13 +123,13 @@ vector <Token> parse(const string& expression)
     }
 
     Token token;
-    if (digits != "")
+    if (!digits.empty())
     {
         token.type = Token_type::NUMBER;
         token.value = digits;
         tokens.push_back(token);
     }
-    if (letters != "")
+    if (!letters.empty())
     {
         token.type = Token_type::CONSTANT;
         token.value = letters;
@@ -141,7 +142,7 @@ vector <Token> negative_numbers(vector <Token>& tokens)
 {
     vector <Token> tokens_;
 
-    for (unsigned int i = 0; i < tokens.size(); ++i)
+    for (int i = 0; i < tokens.size(); ++i)
     {
         Token symbol = tokens[i];
 
@@ -172,7 +173,7 @@ vector <Token> negative_numbers(vector <Token>& tokens)
     return tokens_;
 }
 
-int check(Token symbol)
+int check(const Token& symbol)
 {
     if ((symbol.value == "+") || (symbol.value == "-")) return 1;
     if ((symbol.value == "*") || (symbol.value == "/")) return 2;
@@ -185,7 +186,7 @@ queue <Token> RPN(const vector <Token>& tokens)
     queue <Token> output;
     stack <Token> stack_;
 
-    for (unsigned int i = 0; i < tokens.size(); ++i)
+    for (int i = 0; i < tokens.size(); ++i)
     {
         Token symbol = tokens[i];
 
@@ -227,9 +228,9 @@ queue <Token> RPN(const vector <Token>& tokens)
     return output;
 }
 
-double stack_calc(queue <Token>& rpn_tokens, double x)
+float stack_calc(queue <Token>& rpn_tokens, double x)
 {
-    double result = 0;
+    double result;
     stack <double> stack_;
 
     while (!rpn_tokens.empty())
@@ -249,7 +250,7 @@ double stack_calc(queue <Token>& rpn_tokens, double x)
                 constant = M_E;
                 stack_.push(constant);
             }
-            if (token.value == "x")
+            if (token.value == "x" || token.value == "X")
             {
                 constant = x;
                 stack_.push(constant);
@@ -323,7 +324,7 @@ double stack_calc(queue <Token>& rpn_tokens, double x)
     return result;
 }
 
-double evaluate(string& expression,double x)
+float evaluate(string& expression,double x)
 {
     vector <Token> tokens = parse(expression);
     vector <Token> tokens_ = negative_numbers(tokens);
@@ -331,3 +332,4 @@ double evaluate(string& expression,double x)
     return stack_calc(rpn_tokens,x);
 }
 
+#endif //MAIN_CPP_SHUNTING_YARD_H

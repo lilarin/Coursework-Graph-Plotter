@@ -7,12 +7,8 @@
 
 float roundValue(float var)
 {
-    // 37.66666 * 100 =3766.66
-    // 3766.66 + .5 =3767.16    for rounding off value
-    // then type cast to int so value is 3767
-    // then divided by 100 so the value converted into 37.67
     float value = (int)(var * 100 + .5);
-    return (float)value / 100;
+    return value / 100;
 }
 
 string intToString(float number) {
@@ -25,26 +21,15 @@ string intToString(float number) {
 
 int main()
 {
-//    string equation = "0.5^x-(x+(-2))^2+1";
     string equation,cursorPosition;
-
-    round(2.654);
-
-    float width = 795, height = 720, renderWidth = 1280, renderHeight = 720, xOriginal = 0, yOriginal = 0,
-    CenterX = (width/2), CenterY = (height/2);
-    double Scaler = 10, PanX, PanY;
-
-
+    float width = 795, height = 720, renderWidth = 1280, renderHeight = 720,
+    xOriginal = 0, yOriginal = 0, CenterX = (width/2), CenterY = (height/2),Scaler = 10, PanX, PanY;
     bool hold = false, isGridVisible = true, isThemeBlack = true;
 
 
     RenderWindow window;
-    if (!window.isOpen()) {
-        window.create(sf::VideoMode(renderWidth,renderHeight), "Graph plotter", Style::Close);
-    }
-
+    window.create(sf::VideoMode(renderWidth,renderHeight), "Graph plotter", Style::Close);
     window.setFramerateLimit(60);
-
 
 
     Button button1("/textures/powX.png",{(renderWidth-468),70});
@@ -79,32 +64,30 @@ int main()
     Button button29("/textures/check.png",{width+50,height-200});
     Button button30("/textures/check.png",{width+50,height-100});
 
-//    Button info("/textures/info.png",{(renderWidth-473),465});
 
     RectangleShape bounds(Vector2f(renderWidth-width, renderHeight));
     bounds.setPosition({width,0});
 
     CircleShape Cursor;
-
     Cursor.setRadius(4);
-
 
     Font font;
     font.loadFromFile("C:/arial.ttf");
-    Textbox textbox1(26,Color::Black, true);
-    textbox1.setFont(font);
-    textbox1.setPosition({(renderWidth-458),30});
+    Textbox textbox(26,Color::Black, true);
+    textbox.setFont(font);
+    textbox.setPosition({(renderWidth-458),30});
 
     RectangleShape inputField(Vector2f(456.f, 50.f));
     inputField.setPosition({(renderWidth-468),20});
     inputField.setFillColor(Color(255,255,255));
 
-
     Text text;
     text.setFont(font);
     text.setCharacterSize(24);
 
+
     VertexArray Graph(LinesStrip, 2);
+
 
     while (window.isOpen())
     {
@@ -127,10 +110,7 @@ int main()
                     break;
                 case::Event::KeyPressed:
                     if (event.key.code == Keyboard::Enter) {
-                        string temp = textbox1.getText();
-                        if (temp.length()!=0) {
-                            equation = temp;
-                        }
+                        equation = textbox.getText();
                     }
                     if (event.key.code == Keyboard::Escape) {
                         Scaler = 10;
@@ -157,91 +137,88 @@ int main()
                         Vector2i mousePos = Mouse::getPosition( window );
                         Vector2f mousePosF( static_cast<float>( mousePos.x ), static_cast<float>( mousePos.y ) );
                         if ( button1.getGlobalBounds().contains( mousePosF )) {
-                            textbox1.typedButton("^");
+                            textbox.typedButton("^");
                         }
                         if ( button2.getGlobalBounds().contains( mousePosF )) {
-                            textbox1.typedButton("(");
+                            textbox.typedButton("(");
                         }
                         if ( button3.getGlobalBounds().contains( mousePosF )) {
-                            textbox1.typedButton(")");
+                            textbox.typedButton(")");
                         }
                         if ( button4.getGlobalBounds().contains( mousePosF )) {
-                            textbox1.deleteString();
+                            textbox.deleteString();
                         }
                         if ( button5.getGlobalBounds().contains( mousePosF )) {
-                            textbox1.typedButton("sin");
+                            textbox.typedButton("sin");
                         }
                         if ( button6.getGlobalBounds().contains( mousePosF )) {
-                            textbox1.typedButton("x");
+                            textbox.typedButton("x");
                         }
                         if ( button7.getGlobalBounds().contains( mousePosF )) {
-                            textbox1.typedButton("pi");
+                            textbox.typedButton("pi");
                         }
                         if ( button8.getGlobalBounds().contains( mousePosF )) {
-                            textbox1.deleteChar();
+                            textbox.deleteChar();
                         }
                         if ( button9.getGlobalBounds().contains( mousePosF )) {
-                            textbox1.typedButton("cos");
+                            textbox.typedButton("cos");
                         }
                         if ( button10.getGlobalBounds().contains( mousePosF )) {
-                            textbox1.typedButton("tan");
+                            textbox.typedButton("tan");
                         }
                         if ( button11.getGlobalBounds().contains( mousePosF )) {
-                            textbox1.typedButton("cot");
+                            textbox.typedButton("cot");
                         }
                         if ( button12.getGlobalBounds().contains( mousePosF )) {
-                            textbox1.typedButton("e");
+                            textbox.typedButton("e");
                         }
                         if ( button13.getGlobalBounds().contains( mousePosF )) {
-                            textbox1.typedButton("/");
+                            textbox.typedButton("/");
                         }
                         if ( button14.getGlobalBounds().contains( mousePosF )) {
-                            textbox1.typedButton("7");
+                            textbox.typedButton("7");
                         }
                         if ( button15.getGlobalBounds().contains( mousePosF )) {
-                            textbox1.typedButton("8");
+                            textbox.typedButton("8");
                         }
                         if ( button16.getGlobalBounds().contains( mousePosF )) {
-                            textbox1.typedButton("9");
+                            textbox.typedButton("9");
                         }
                         if ( button17.getGlobalBounds().contains( mousePosF )) {
-                            textbox1.typedButton("*");
+                            textbox.typedButton("*");
                         }
                         if ( button18.getGlobalBounds().contains( mousePosF )) {
-                            textbox1.typedButton("4");
+                            textbox.typedButton("4");
                         }
                         if ( button19.getGlobalBounds().contains( mousePosF )) {
-                            textbox1.typedButton("5");
+                            textbox.typedButton("5");
                         }
                         if ( button20.getGlobalBounds().contains( mousePosF )) {
-                            textbox1.typedButton("6");
+                            textbox.typedButton("6");
                         }
                         if ( button21.getGlobalBounds().contains( mousePosF )) {
-                            textbox1.typedButton("-");
+                            textbox.typedButton("-");
                         }
                         if ( button22.getGlobalBounds().contains( mousePosF )) {
-                            textbox1.typedButton("1");
+                            textbox.typedButton("1");
                         }
                         if ( button23.getGlobalBounds().contains( mousePosF )) {
-                            textbox1.typedButton("2");
+                            textbox.typedButton("2");
                         }
                         if ( button24.getGlobalBounds().contains( mousePosF )) {
-                            textbox1.typedButton("3");
+                            textbox.typedButton("3");
                         }
                         if ( button25.getGlobalBounds().contains( mousePosF )) {
-                            textbox1.typedButton("+");
+                            textbox.typedButton("+");
                         }
                         if ( button26.getGlobalBounds().contains( mousePosF )) {
-                            textbox1.typedButton("0");
+                            textbox.typedButton("0");
                         }
                         if ( button27.getGlobalBounds().contains( mousePosF )) {
-                            textbox1.typedButton(".");
+                            textbox.typedButton(".");
                         }
                         if ( button28.getGlobalBounds().contains( mousePosF )) {
-                            string temp = textbox1.getText();
-                            if (temp.length()!=0) {
-                                equation = temp;
-                            }
+                            equation = textbox.getText();
                         }
 
                         if ( button29.getGlobalBounds().contains( mousePosF )) {
@@ -372,25 +349,24 @@ int main()
                     if (event.mouseButton.button == Mouse::Right) hold = false;
                     break;
                 case Event::TextEntered:
-                    textbox1.typedOn(event);
+                    textbox.typedOn(event);
             }
         }
+
 
         if (!isThemeBlack) window.clear(Color(240,240,240));
         else window.clear(Color::Black);
 
-        font.loadFromFile("C:/arial.ttf");
-        Text dimension;
-        dimension.setFont(font);
-        dimension.setColor(sf::Color::White);
 
-        double FScaler = Scaler;
-        while(width/FScaler > 20) {
+        float FScaler = Scaler;
+
+        while ( width / FScaler > 20) {
             FScaler *= 2;
         }
 
 
         VertexArray Line(LinesStrip, 2);
+
 
         if (isThemeBlack) {
             Line[0].color = {255, 255, 255};
@@ -402,6 +378,8 @@ int main()
             Line[1].color = {0, 0, 0};
             text.setFillColor({0, 0, 0});
         }
+
+
         Line[0].position = Vector2f(CenterX, (0));                    //creates the y axis
         Line[1].position = Vector2f(CenterX, (height));                 // ''
         window.draw(Line);                                             //draws the y axis
@@ -410,51 +388,50 @@ int main()
         window.draw(Line);
 
 
-        double lastPositive = (width/2+(-1*(CenterX-width/2)))/Scaler,lastNegative = (-width/2+(-1*(CenterX-width/2)))/Scaler;
-        for(double i = 0; i<=width/2+(-1*(CenterX-width/2)); i+=FScaler)    //creates the Positive X numbers on the grid
+        for(float i = 0; i<=width/2+(-1*(CenterX-width/2)); i+=FScaler)    //creates the Positive X numbers on the grid
         {
             text.setString(intToString(i/Scaler));
             text.setPosition((i+CenterX),CenterY);
             window.draw(text);
         }
-        for(double i = 0; i>=-width/2+(-1*(CenterX-width/2)); i-=FScaler)     //creates the Negative X numbers on the grid
+        for(float i = 0; i>=-width/2+(-1*(CenterX-width/2)); i-=FScaler)     //creates the Negative X numbers on the grid
         {
             text.setString(intToString(i/Scaler));
             text.setPosition((i+CenterX),CenterY);
             window.draw(text);
         }
-        for(double i = 0; i<=height/2+(CenterY-height/2); i+=FScaler)           //creates the Positive Y numbers on the grid
+        for(float i = 0; i<=height/2+(CenterY-height/2); i+=FScaler)           //creates the Positive Y numbers on the grid
         {
             text.setString(intToString(i/Scaler));
             text.setPosition(CenterX,CenterY-i);
             window.draw(text);
         }
-        for(double i = 0; i>=-height/2+(CenterY-height/2); i-=FScaler)          //creates the Negative Y numbers on the grid
+        for(float i = 0; i>=-height/2+(CenterY-height/2); i-=FScaler)          //creates the Negative Y numbers on the grid
         {
             text.setString(intToString(i/Scaler));
             text.setPosition(CenterX,CenterY-i);
             window.draw(text);
         }
 
-        for(double i = 0; i <= width/2+(CenterX-width/2); i+=FScaler)                          //creates the lines by the numbers Negative X grid
+        for(float i = 0; i <= width/2+(CenterX-width/2); i+=FScaler)                          //creates the lines by the numbers Negative X grid
         {
             Line[0].position = Vector2f(CenterX-i, CenterY-(10));
             Line[1].position = Vector2f(CenterX-i, CenterY+(10));
             window.draw(Line);
         }
-        for(double i = 0; i <= width/2+(-1*(CenterX-width/2)); i+=FScaler)                          //creates the lines by the numbers Positive X grid
+        for(float i = 0; i <= width/2+(-1*(CenterX-width/2)); i+=FScaler)                          //creates the lines by the numbers Positive X grid
         {
             Line[0].position = Vector2f(CenterX+i, CenterY-(10));
             Line[1].position = Vector2f(CenterX+i, CenterY+(10));
             window.draw(Line);
         }
-        for(double i = 0; i <= height/2+(-1*(CenterY-height/2)); i+=FScaler)                          //creates the lines by the numbers
+        for(float i = 0; i <= height/2+(-1*(CenterY-height/2)); i+=FScaler)                          //creates the lines by the numbers
         {
             Line[0].position = Vector2f(CenterX-(10),CenterY+i);
             Line[1].position = Vector2f(CenterX+(10),CenterY+i);
             window.draw(Line);
         }
-        for(double i = 0; i <= height/2+((CenterY-height/2)); i+=FScaler)                          //creates the lines by the numbers
+        for(float i = 0; i <= height/2+((CenterY-height/2)); i+=FScaler)                          //creates the lines by the numbers
         {
             Line[0].position = Vector2f(CenterX-(10),CenterY-i);
             Line[1].position = Vector2f(CenterX+(10),CenterY-i);
@@ -470,25 +447,25 @@ int main()
                 Line[0].color = {200, 200, 200};
                 Line[1].color = {200, 200, 200};
             };
-            for(double i = 1; i <= width/2+(CenterX-width/2); i+=FScaler)                          //creates the lines by the numbers Negative X grid
+            for(float i = 1; i <= width/2+(CenterX-width/2); i+=FScaler)                          //creates the lines by the numbers Negative X grid
             {
                 Line[0].position = Vector2f(CenterX-i, 0);
                 Line[1].position = Vector2f(CenterX-i, height);
                 window.draw(Line);
             }
-            for(double i = 1; i <= width/2+(-1*(CenterX-width/2)); i+=FScaler)                          //creates the lines by the numbers Positive X grid
+            for(float i = 1; i <= width/2+(-1*(CenterX-width/2)); i+=FScaler)                          //creates the lines by the numbers Positive X grid
             {
                 Line[0].position = Vector2f(CenterX+i, 0);
                 Line[1].position = Vector2f(CenterX+i, height);
                 window.draw(Line);
             }
-            for(double i = 1; i <= height/2+(-1*(CenterY-height/2)); i+=FScaler)                          //creates the lines by the numbers
+            for(float i = 1; i <= height/2+(-1*(CenterY-height/2)); i+=FScaler)                          //creates the lines by the numbers
             {
                 Line[0].position = Vector2f(0,CenterY+i);
                 Line[1].position = Vector2f(width,CenterY+i);
                 window.draw(Line);
             }
-            for(double i = 1; i <= height/2+((CenterY-height/2)); i+=FScaler)                          //creates the lines by the numbers
+            for(float i = 1; i <= height/2+((CenterY-height/2)); i+=FScaler)                          //creates the lines by the numbers
             {
                 Line[0].position = Vector2f(0,CenterY-i);
                 Line[1].position = Vector2f(width,CenterY-i);
@@ -507,14 +484,14 @@ int main()
             Cursor.setFillColor(Color::Red);
         }
 
-        if (equation.length() != 0) {
-            for(double x = lastNegative; x < lastPositive; x += 1/Scaler)                  //draws the graph in increments of 0.1
-            {
-                double x_ = x;
-                Graph[0].position = Vector2f((x*Scaler+CenterX),(evaluate(equation,x_)*Scaler*-1+CenterY));
-                x_ = x+1/Scaler;
-                Graph[1].position = Vector2f(((x+1/Scaler)*Scaler+CenterX),(evaluate(equation,x_)*Scaler*-1+CenterY));
+        float lastPositive = (width/2+(-1*(CenterX-width/2)))/Scaler,
+        lastNegative = (-width/2+(-1*(CenterX-width/2)))/Scaler;
 
+        if (!equation.empty()) {
+            for(float x = lastNegative; x < lastPositive; x += 1/Scaler)                  //draws the graph in increments of 0.1
+            {
+                Graph[0].position = Vector2f((x*Scaler+CenterX),(evaluate(equation,x)*Scaler*-1+CenterY));
+                Graph[1].position = Vector2f(((x+1/Scaler)*Scaler+CenterX),(evaluate(equation,x+1/Scaler)*Scaler*-1+CenterY));
                 window.draw(Graph);
 
 
@@ -526,9 +503,9 @@ int main()
                     text.setPosition(mousePosF);
 
                     cursorPosition = "( ";
-                    cursorPosition += intToString(roundValue((mousePos.x-width/2)/Scaler));
+                    cursorPosition += intToString(roundValue((mousePos.x-width/2+(-1*(CenterX-width/2)))/Scaler));
                     cursorPosition += " , ";
-                    cursorPosition += intToString(roundValue((-mousePos.y+height/2)/Scaler));
+                    cursorPosition += intToString(roundValue((-mousePos.y+height/2-(-1*(CenterY-height/2)))/Scaler));
                     cursorPosition += " )";
 
                     text.setString(cursorPosition);
@@ -542,9 +519,10 @@ int main()
 
         if (isThemeBlack) bounds.setFillColor(Color::Black);
         else bounds.setFillColor(Color(240,240,240));
+
         window.draw(bounds);
         window.draw(inputField);
-        textbox1.drawTo(window);
+        textbox.drawTo(window);
 
         text.setString("Dark theme");
         text.setPosition({width+100,height-200});
