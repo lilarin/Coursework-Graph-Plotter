@@ -63,20 +63,20 @@ public:
             }
         }
     }
+
     void typedButton(const string& inputButton) {
-        string charTyped = inputButton;
         for (int i=0; i<inputButton.length(); i++) {
-            if (charTyped[i] < 128) {
+            if (inputButton[i] < 128) {
                 if (hasLimit) {
                     if (text.str().length() <= limit) {
-                        inputLogic(charTyped[i]);
+                        inputLogic(inputButton[i]);
                     }
-                    else if(text.str().length() > limit && charTyped[i] && DELETE_KEY) {
+                    else if(text.str().length() > limit && inputButton[i] && DELETE_KEY) {
                         deleteLastChar();
                     }
                 }
                 else {
-                    inputLogic(charTyped[i]);
+                    inputLogic(inputButton[i]);
                 }
             }
         }
@@ -88,12 +88,14 @@ public:
         }
         textbox.setString(text.str() + "_");
     }
+
     void deleteString() {
         while (text.str().length() > 0) {
             deleteLastChar();
         }
         textbox.setString("_");
     }
+
 private:
     Text textbox;
     ostringstream text;
