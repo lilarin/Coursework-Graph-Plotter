@@ -29,34 +29,36 @@ struct Token // Creating struct of token, which consists of token type and value
 
 vector <Token> parse(const string& expression)
 {
-    vector <Token> tokens;
-    string digits;
+    vector <Token> tokens; // creating dynamic array with type of structure "Token"
+    string digits; // creating digits
     string letters;
 
-    for (int i = 0; i < expression.size(); ++i)
-    {
+    for (int i = 0; i < expression.size(); i++) {
         char character = expression[i];
 
-        if (character == ' ') continue;
+        if (character == ' ') {
+            continue;
+        }
 
-        if (isdigit(character) || character == '.')
+        if (isdigit(character) || character == '.') {
             digits.push_back(character);
+        }
 
-        else if (isalpha(character))
+        else if (isalpha(character)) {
             letters.push_back(character);
+        }
 
-        else if (character == ',')
-        {
+        else if (character == ',') {
             Token sign;
-            if (!digits.empty())
-            {
+
+            if (!digits.empty()) {
                 sign.type = Token_type::NUMBER;
                 sign.value = digits;
                 tokens.push_back(sign);
                 digits = "";
             }
-            if (!letters.empty())
-            {
+
+            if (!letters.empty()) {
                 sign.type = Token_type::CONSTANT;
                 sign.value = letters;
                 tokens.push_back(sign);
@@ -64,58 +66,58 @@ vector <Token> parse(const string& expression)
             }
         }
 
-        else if ((character == '+') || (character == '-') || (character == '*') || (character == '/') || (character == '^'))
-        {
+        else if ((character == '+') || (character == '-') || (character == '*') || (character == '/') || (character == '^')) {
             Token sign;
-            if (!digits.empty())
-            {
+
+            if (!digits.empty()) {
                 sign.type = Token_type::NUMBER;
                 sign.value = digits;
                 tokens.push_back(sign);
                 digits = "";
             }
-            if (!letters.empty())
-            {
+
+            if (!letters.empty()) {
                 sign.type = Token_type::CONSTANT;
                 sign.value = letters;
                 tokens.push_back(sign);
                 letters = "";
             }
+
             sign.type = Token_type::OPERATOR;
             sign.value = character;
             tokens.push_back(sign);
         }
-        else if (character == '(')
-        {
+        else if (character == '(') {
             Token bracket;
-            if (!letters.empty())
-            {
+
+            if (!letters.empty()) {
                 bracket.type = Token_type::FUNCTION;
                 bracket.value = letters;
                 tokens.push_back(bracket);
                 letters = "";
             }
+
             bracket.type = Token_type::BRACKET;
             bracket.value = character;
             tokens.push_back(bracket);
         }
-        else if (character == ')')
-        {
+        else if (character == ')') {
             Token sign;
-            if (!digits.empty())
-            {
+
+            if (!digits.empty()) {
                 sign.type = Token_type::NUMBER;
                 sign.value = digits;
                 tokens.push_back(sign);
                 digits = "";
             }
-            if (!letters.empty())
-            {
+
+            if (!letters.empty()) {
                 sign.type = Token_type::CONSTANT;
                 sign.value = letters;
                 tokens.push_back(sign);
                 letters = "";
             }
+
             sign.type = Token_type::BRACKET;
             sign.value = character;
             tokens.push_back(sign);
@@ -123,18 +125,18 @@ vector <Token> parse(const string& expression)
     }
 
     Token token;
-    if (!digits.empty())
-    {
+    if (!digits.empty()) {
         token.type = Token_type::NUMBER;
         token.value = digits;
         tokens.push_back(token);
     }
-    if (!letters.empty())
-    {
+
+    if (!letters.empty()) {
         token.type = Token_type::CONSTANT;
         token.value = letters;
         tokens.push_back(token);
     }
+
     return tokens;
 }
 
@@ -142,14 +144,12 @@ vector <Token> negative_numbers(vector <Token>& tokens)
 {
     vector <Token> tokens_;
 
-    for (int i = 0; i < tokens.size(); ++i)
-    {
+    for (int i = 0; i < tokens.size(); ++i) {
         Token symbol = tokens[i];
 
         if (symbol.type == Token_type::NUMBER) {
             tokens_.push_back(symbol);
         }
-
 
         if (symbol.type == Token_type::BRACKET) {
             tokens_.push_back(symbol);
@@ -230,7 +230,7 @@ queue <Token> RPN(const vector <Token>& tokens) {
 }
 
 float stack_calc(queue <Token>& rpn_tokens, double x) {
-    double result;
+    float result;
     stack <double> stack_;
 
     while (!rpn_tokens.empty()) {
@@ -246,10 +246,12 @@ float stack_calc(queue <Token>& rpn_tokens, double x) {
                 constant = M_E;
                 stack_.push(constant);
             }
+
             if (token.value == "x" || token.value == "X") {
                 constant = x;
                 stack_.push(constant);
             }
+
             if (token.value == "pi") {
                 constant = M_PI;
                 stack_.push(constant);
