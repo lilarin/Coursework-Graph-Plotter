@@ -51,13 +51,15 @@ public:
     }
 
     void typedButton(const string& inputButton) {
-        for (int i=0; i<inputButton.length(); i++) {
+        int i = 0;
+        while (i<inputButton.length()) {
             if (text.str().length() <= limit) {
                 inputLogic(inputButton[i]);
             }
             else if(text.str().length() > limit && inputButton[i] && DELETE_KEY) {
                 deleteLastChar();
             }
+            i++;
         }
     }
 

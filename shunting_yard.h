@@ -32,8 +32,8 @@ vector <Token> parse(const string& expression)
     vector <Token> tokens; // creating dynamic array with type of structure "Token"
     string digits; // creating digits
     string letters;
-
-    for (int i = 0; i < expression.size(); i++) {
+    int i = 0;
+    while (i < expression.size()) {
         char character = expression[i];
 
         if (character == ' ') {
@@ -122,6 +122,7 @@ vector <Token> parse(const string& expression)
             sign.value = character;
             tokens.push_back(sign);
         }
+        i++;
     }
 
     Token token;
@@ -143,8 +144,8 @@ vector <Token> parse(const string& expression)
 vector <Token> negative_numbers(vector <Token>& tokens)
 {
     vector <Token> tokens_;
-
-    for (int i = 0; i < tokens.size(); ++i) {
+    int i = 0;
+    while (i < tokens.size()) {
         Token symbol = tokens[i];
 
         if (symbol.type == Token_type::NUMBER) {
@@ -173,6 +174,7 @@ vector <Token> negative_numbers(vector <Token>& tokens)
                 tokens_.push_back(symbol);
             }
         }
+        i++;
     }
     return tokens_;
 }
@@ -187,8 +189,8 @@ int check(const Token& symbol) {
 queue <Token> RPN(const vector <Token>& tokens) {
     queue <Token> output;
     stack <Token> stack_;
-
-    for (int i = 0; i < tokens.size(); i++) {
+    int i = 0;
+    while (i < tokens.size()) {
         Token symbol = tokens[i];
 
         if ((symbol.type == Token_type::NUMBER) || (symbol.type == Token_type::CONSTANT)) {
@@ -221,6 +223,7 @@ queue <Token> RPN(const vector <Token>& tokens) {
                 stack_.pop();
             }
         }
+        i++;
     }
     while(!stack_.empty()) {
         output.push(stack_.top());
