@@ -96,6 +96,9 @@
 		<Unit filename="C:/Users/User/Desktop/Coursework/Coursework/textbox.h">
 			<Option target="Coursework"/>
 		</Unit>
+		<Unit filename="C:/Users/User/Desktop/Coursework/Coursework/utility.h">
+			<Option target="Coursework"/>
+		</Unit>
 		<Unit filename="C:/Users/User/Desktop/Coursework/Coursework/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

@@ -3,21 +3,7 @@
 #include <string>
 #include "button.h"
 #include "shunting_yard.h"
-
-
-float roundValue(float var)
-{
-    float value = (int)(var * 100 + .5);
-    return value / 100;
-}
-
-string intToString(float number) {
-    stringstream ss;             //create a stringstream
-    string str;
-    ss << number;                //add number to the stream
-    ss >> str;                   //push the contents onto a string
-    return str;                  //return the string
-}
+#include "utility.h"
 
 int main()
 {
@@ -125,12 +111,12 @@ int main()
                     if (event.key.code == sf::Keyboard::Up) {
                         if(Scaler == -1 && event.mouseWheel.delta >=1) //will not allow Scaler to become 0
                             Scaler = 1;
-                        Scaler+=Scaler*0.1;
+                        Scaler+=Scaler*0.1f;
                     }
                     if (event.key.code == sf::Keyboard::Down) {
                         if(Scaler == 1 && event.mouseWheel.delta <=-1)      //will not allow Scaler to become 0
                             Scaler = -1;
-                        Scaler-=Scaler*0.1;
+                        Scaler-=Scaler*0.1f;
                     }
                 case Event::MouseButtonPressed:
                     if (event.mouseButton.button == Mouse::Right) {
