@@ -23,8 +23,8 @@ int main()
 {
     string equation,cursorPosition;
     float width = 795, height = 720, renderWidth = 1280, renderHeight = 720,
-    xOriginal = 0, yOriginal = 0, CenterX = (width/2), CenterY = (height/2),Scaler = 10, PanX, PanY;
-    bool hold = false, isGridVisible = true, isThemeBlack = true;
+    xOriginal = 0, yOriginal = 0, CenterX = (width/2), CenterY = (height/2),Scaler = 45, PanX, PanY;
+    bool hold = false, isGridVisible = true, isThemeBlack = true, isCursorVisible = false;
 
 
     RenderWindow window;
@@ -61,8 +61,9 @@ int main()
     Button button27("/textures/dot.png",{(renderWidth-241),400});
     Button button28("/textures/result.png",{(renderWidth-127),400});
 
-    Button button29("/textures/check.png",{width+50,height-200});
-    Button button30("/textures/check.png",{width+50,height-100});
+    Button button29("/textures/check.png",{width+50,height-225});
+    Button button30("/textures/check.png",{width+50,height-150});
+    Button button31("/textures/cross.png",{width+50,height-75});
 
 
     RectangleShape bounds(Vector2f(renderWidth-width, renderHeight));
@@ -70,6 +71,10 @@ int main()
 
     CircleShape Cursor;
     Cursor.setRadius(4);
+
+    RectangleShape CursorIntersection(Vector2f(1.f, 2*height));
+    CursorIntersection.setFillColor(Color(255,255,255));
+
 
     Font font;
     font.loadFromFile("C:/arial.ttf");
@@ -113,7 +118,7 @@ int main()
                         equation = textbox.getText();
                     }
                     if (event.key.code == Keyboard::Escape) {
-                        Scaler = 10;
+                        Scaler = 45;
                         CenterX = width/2;
                         CenterY = height/2;
                     }
@@ -242,6 +247,16 @@ int main()
                                 isGridVisible = true;
                             }
                         }
+                        if ( button31.getGlobalBounds().contains( mousePosF )) {
+                            if (isCursorVisible) {
+                                button31.setTexture("/textures/cross.png");
+                                isCursorVisible = false;
+                            }
+                            else {
+                                button31.setTexture("/textures/check.png");
+                                isCursorVisible = true;
+                            }
+                        }
                     }
                     break;
                     {case Event::MouseMoved:
@@ -257,8 +272,8 @@ int main()
                         Vector2i mousePos = Mouse::getPosition( window );
                         Vector2f mousePosF( static_cast<float>( mousePos.x ), static_cast<float>( mousePos.y ) );
 
-                        Vector2f CursorPos( static_cast<float>( mousePos.x - 3 ), static_cast<float>( mousePos.y - 3) );
-                        Cursor.setPosition(CursorPos);
+                        Vector2f CursorIntersectionPos( static_cast<float>( mousePos.x ), static_cast<float>( mousePos.y - height) );
+                        CursorIntersection.setPosition(CursorIntersectionPos);
 
                         if ( button1.getGlobalBounds().contains( mousePosF )) {
                             button1.setColor( sf::Color( 183, 183, 185 ) );
@@ -487,32 +502,37 @@ int main()
         float lastPositive = (width/2+(-1*(CenterX-width/2)))/Scaler,
         lastNegative = (-width/2+(-1*(CenterX-width/2)))/Scaler;
 
+
         if (!equation.empty()) {
-            for(float x = lastNegative; x < lastPositive; x += 1/Scaler)                  //draws the graph in increments of 0.1
+            for(float x = lastNegative; x < lastPositive; x += 1/Scaler)
             {
                 Graph[0].position = Vector2f((x*Scaler+CenterX),(evaluate(equation,x)*Scaler*-1+CenterY));
                 Graph[1].position = Vector2f(((x+1/Scaler)*Scaler+CenterX),(evaluate(equation,x+1/Scaler)*Scaler*-1+CenterY));
                 window.draw(Graph);
 
 
-                Vector2i mousePos = Mouse::getPosition( window );
-                Vector2f mousePosF( static_cast<float>( mousePos.x + 20 ), static_cast<float>( mousePos.y ) );
+                if (isCursorVisible) {
+                    if ( CursorIntersection.getGlobalBounds().contains(Graph[0].position) ) {
+                        Vector2i mousePos = Mouse::getPosition( window );
+                        Vector2f textPos( static_cast<float>( mousePos.x + 20 ), static_cast<float>( (Graph[0].position.y) ) );
+                        Vector2f cursorPos( static_cast<float>( mousePos.x - 3 ), static_cast<float>( (Graph[0].position.y) - 3) );
 
-                if ( Cursor.getGlobalBounds().contains(Graph[0].position) ) {
+                        text.setPosition(textPos);
+                        Cursor.setPosition(cursorPos);
 
-                    text.setPosition(mousePosF);
+                        cursorPosition = "( ";
+                        cursorPosition += intToString(roundValue((mousePos.x-width/2+(-1*(CenterX-width/2)))/Scaler));
+                        cursorPosition += " , ";
+                        cursorPosition += intToString(roundValue((-(Graph[0].position.y)+height/2-(-1*(CenterY-height/2)))/Scaler));
+                        cursorPosition += " )";
 
-                    cursorPosition = "( ";
-                    cursorPosition += intToString(roundValue((mousePos.x-width/2+(-1*(CenterX-width/2)))/Scaler));
-                    cursorPosition += " , ";
-                    cursorPosition += intToString(roundValue((-mousePos.y+height/2-(-1*(CenterY-height/2)))/Scaler));
-                    cursorPosition += " )";
+                        text.setString(cursorPosition);
+                        window.draw(text);
+                        window.draw(Cursor);
 
-                    text.setString(cursorPosition);
-                    window.draw(text);
-                    window.draw(Cursor);
-
+                    }
                 }
+
             }
         }
 
@@ -525,10 +545,13 @@ int main()
         textbox.drawTo(window);
 
         text.setString("Dark theme");
-        text.setPosition({width+100,height-200});
+        text.setPosition({width+100,height-225});
         window.draw(text);
         text.setString("Grid on the plane");
-        text.setPosition({width+100,height-100});
+        text.setPosition({width+100,height-150});
+        window.draw(text);
+        text.setString("Cursor on the plane");
+        text.setPosition({width+100,height-75});
         window.draw(text);
 
 
@@ -562,8 +585,10 @@ int main()
         button28.drawButton(window);
         button29.scale();
         button30.scale();
+        button31.scale();
         button29.drawButton(window);
         button30.drawButton(window);
+        button31.drawButton(window);
 
 
         window.display();
