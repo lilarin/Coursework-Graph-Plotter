@@ -16,7 +16,7 @@ using namespace std;
 // class with user input processing and correct operation of the input field
 class Textbox {
 public:
-    Textbox(int size, Color color, bool sel) { // Constructor for input field
+    Textbox(int size, Color color) { // Constructor for input field
         textbox.setCharacterSize(size);
         textbox.setFillColor(color);
         textbox.setString("_");

@@ -67,7 +67,7 @@ int main()
     RectangleShape CursorIntersection(Vector2f(1.f, 2*height));
     CursorIntersection.setFillColor(Color(255,255,255));
 
-    Textbox textbox(26,Color::Black, true);
+    Textbox textbox(26,Color::Black);
     textbox.setFont(font);
     textbox.setPosition({(renderWidth-458),30});
 
