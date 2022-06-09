@@ -12,7 +12,7 @@
 
 using namespace std;
 
-enum Token_type
+enum Token_type // Defining token types
 {
     NUMBER,
     OPERATOR,
@@ -21,7 +21,7 @@ enum Token_type
     CONSTANT
 };
 
-struct Token
+struct Token // Creating struct of token, which consists of token type and value
 {
     Token_type type;
     string value;
@@ -146,19 +146,22 @@ vector <Token> negative_numbers(vector <Token>& tokens)
     {
         Token symbol = tokens[i];
 
-        if (symbol.type == Token_type::NUMBER)
+        if (symbol.type == Token_type::NUMBER) {
             tokens_.push_back(symbol);
+        }
 
-        if (symbol.type == Token_type::BRACKET)
+
+        if (symbol.type == Token_type::BRACKET) {
             tokens_.push_back(symbol);
+        }
 
-        if (symbol.type == Token_type::FUNCTION)
+        if (symbol.type == Token_type::FUNCTION) {
             tokens_.push_back(symbol);
+        }
 
-        else if ((symbol.type == Token_type::OPERATOR) || (symbol.type == Token_type::CONSTANT))
-        {
-            if (((tokens_.empty()) || (tokens_.back().value == "(")) && symbol.value == "-")
-            {
+
+        else if ((symbol.type == Token_type::OPERATOR) || (symbol.type == Token_type::CONSTANT)) {
+            if (((tokens_.empty()) || (tokens_.back().value == "(")) && symbol.value == "-") {
                 Token token;
                 token.type = Token_type::NUMBER;
                 token.value = "0";
@@ -166,38 +169,37 @@ vector <Token> negative_numbers(vector <Token>& tokens)
                 tokens_.push_back(token);
                 tokens_.push_back(symbol);
             }
-            else
+            else {
                 tokens_.push_back(symbol);
+            }
         }
     }
     return tokens_;
 }
 
-int check(const Token& symbol)
-{
+int check(const Token& symbol) {
     if ((symbol.value == "+") || (symbol.value == "-")) return 1;
     if ((symbol.value == "*") || (symbol.value == "/")) return 2;
     if (symbol.value == "^") return 3;
     return 0;
 }
 
-queue <Token> RPN(const vector <Token>& tokens)
-{
+queue <Token> RPN(const vector <Token>& tokens) {
     queue <Token> output;
     stack <Token> stack_;
 
-    for (int i = 0; i < tokens.size(); ++i)
-    {
+    for (int i = 0; i < tokens.size(); i++) {
         Token symbol = tokens[i];
 
-        if ((symbol.type == Token_type::NUMBER) || (symbol.type == Token_type::CONSTANT))
+        if ((symbol.type == Token_type::NUMBER) || (symbol.type == Token_type::CONSTANT)) {
             output.push(symbol);
+        }
 
-        if (symbol.type == Token_type::FUNCTION)
+        if (symbol.type == Token_type::FUNCTION) {
             stack_.push(symbol);
+        }
 
-        if (symbol.type == Token_type::OPERATOR)
-        {
+        if (symbol.type == Token_type::OPERATOR) {
             while ((!stack_.empty()) && (stack_.top().value != "(") && ((stack_.top().type == Token_type::FUNCTION) || (check(stack_.top()) >= check(symbol))))
             {
                 output.push(stack_.top());
@@ -206,86 +208,81 @@ queue <Token> RPN(const vector <Token>& tokens)
             stack_.push(symbol);
         }
 
-        if (symbol.value == "(")
+        if (symbol.value == "(") {
             stack_.push(symbol);
+        }
 
-        if (symbol.value == ")")
-        {
-            while (stack_.top().value != "(")
-            {
+        if (symbol.value == ")") {
+            while (stack_.top().value != "(") {
                 output.push(stack_.top());
                 stack_.pop();
             }
-            if (stack_.top().value == "(")
+            if (stack_.top().value == "(") {
                 stack_.pop();
+            }
         }
     }
-    while(!stack_.empty())
-    {
+    while(!stack_.empty()) {
         output.push(stack_.top());
         stack_.pop();
     }
     return output;
 }
 
-float stack_calc(queue <Token>& rpn_tokens, double x)
-{
+float stack_calc(queue <Token>& rpn_tokens, double x) {
     double result;
     stack <double> stack_;
 
-    while (!rpn_tokens.empty())
-    {
+    while (!rpn_tokens.empty()) {
         Token token = rpn_tokens.front();
 
-        if (token.type == Token_type::NUMBER)
-        {
+        if (token.type == Token_type::NUMBER) {
             double number = stof(token.value);
             stack_.push(number);
         }
-        else if (token.type == Token_type::CONSTANT)
-        {
+        else if (token.type == Token_type::CONSTANT) {
             double constant;
-            if (token.value == "e")
-            {
+            if (token.value == "e") {
                 constant = M_E;
                 stack_.push(constant);
             }
-            if (token.value == "x" || token.value == "X")
-            {
+            if (token.value == "x" || token.value == "X") {
                 constant = x;
                 stack_.push(constant);
             }
-            if (token.value == "pi")
-            {
+            if (token.value == "pi") {
                 constant = M_PI;
                 stack_.push(constant);
             }
         }
-        else if (token.type == Token_type::OPERATOR)
-        {
+        else if (token.type == Token_type::OPERATOR) {
             double a = stack_.top();
             stack_.pop();
 
             double b = stack_.top();
             stack_.pop();
 
-            if (token.value == "+")
+            if (token.value == "+") {
                 stack_.push(a + b);
+            }
 
-            if (token.value == "-")
+            if (token.value == "-") {
                 stack_.push(b - a);
+            }
 
-            if (token.value == "*")
+            if (token.value == "*") {
                 stack_.push(a * b);
+            }
 
-            if (token.value == "/")
+            if (token.value == "/") {
                 stack_.push(b / a);
+            }
 
-            if (token.value == "^")
+            if (token.value == "^") {
                 stack_.push(pow(b, a));
+            }
         }
-        else if (token.type == Token_type::FUNCTION && token.value == "log")
-        {
+        else if (token.type == Token_type::FUNCTION && token.value == "log") {
             double a = stack_.top();
             stack_.pop();
 
@@ -294,29 +291,33 @@ float stack_calc(queue <Token>& rpn_tokens, double x)
 
             stack_.push(log(a) / log(b));
         }
-        else if (token.type == Token_type::FUNCTION)
-        {
+        else if (token.type == Token_type::FUNCTION) {
             double c = stack_.top();
             stack_.pop();
 
-            if (token.value == "sqrt")
+            if (token.value == "sqrt") {
                 stack_.push(sqrt(c));
+            }
 
-            if (token.value == "sin")
+            if (token.value == "sin") {
                 stack_.push(sin(c));
+            }
 
-            if (token.value == "cos")
+            if (token.value == "cos") {
                 stack_.push(cos(c));
+            }
 
-            if (token.value == "tan")
+            if (token.value == "tan") {
                 stack_.push((sin(c) / cos(c)));
+            }
 
-            if (token.value == "cot")
+            if (token.value == "cot") {
                 stack_.push((cos(c) / sin(c)));
+            }
 
-            if (token.value == "ln")
+            if (token.value == "ln") {
                 stack_.push((log(c)));
-
+            }
         }
         rpn_tokens.pop();
     }
@@ -324,8 +325,7 @@ float stack_calc(queue <Token>& rpn_tokens, double x)
     return result;
 }
 
-float evaluate(string& expression,double x)
-{
+float evaluate(string& expression,double x) {
     vector <Token> tokens = parse(expression);
     vector <Token> tokens_ = negative_numbers(tokens);
     queue <Token> rpn_tokens = RPN(tokens_);

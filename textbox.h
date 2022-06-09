@@ -14,70 +14,50 @@
 using namespace sf;
 using namespace std;
 
-
+// class with user input processing and correct operation of the input field
 class Textbox {
 public:
-    Textbox(int size, Color color, bool sel) {
+    Textbox(int size, Color color, bool sel) { // Constructor for input field
         textbox.setCharacterSize(size);
         textbox.setFillColor(color);
-        isSelected = sel;
-        if (sel) {
-            textbox.setString("_");
-        }
-        else {
-            textbox.setString("");
-        }
+        textbox.setString("_");
     }
 
-    void setFont(Font &font) {
+    void setFont(Font &font) { // function for defining font of text field
         textbox.setFont(font);
     }
 
-    void setPosition(Vector2f pos) {
+    void setPosition(Vector2f pos) { // function for draw input field
         textbox.setPosition(pos);
     }
 
-    string getText() {
+    string getText() {  // function for get text
         return text.str();
     }
 
-    void drawTo (RenderWindow &window) {
+    void drawTo (RenderWindow &window) { // function for draw input field
         window.draw(textbox);
     }
 
     void typedOn(Event input) {
-        if (isSelected) {
-            int charTyped = input.text.unicode;
-            if (charTyped < 128) {
-                if (hasLimit) {
-                    if (text.str().length() <= limit) {
-                        inputLogic(charTyped);
-                    }
-                    else if(text.str().length() > limit && charTyped && DELETE_KEY) {
-                        deleteLastChar();
-                    }
-                }
-                else {
-                    inputLogic(charTyped);
-                }
+        int charTyped = input.text.unicode; // Converting text for check is it from latin alphabet
+        if (charTyped < 128) {
+            if (text.str().length() <= limit) {
+                inputLogic(charTyped);
+            }
+            else if(text.str().length() > limit && charTyped && DELETE_KEY) {
+                deleteLastChar();
             }
         }
     }
 
     void typedButton(const string& inputButton) {
         for (int i=0; i<inputButton.length(); i++) {
-            if (inputButton[i] < 128) {
-                if (hasLimit) {
-                    if (text.str().length() <= limit) {
-                        inputLogic(inputButton[i]);
-                    }
-                    else if(text.str().length() > limit && inputButton[i] && DELETE_KEY) {
-                        deleteLastChar();
-                    }
-                }
-                else {
-                    inputLogic(inputButton[i]);
-                }
+            if (text.str().length() <= limit) {
+                inputLogic(inputButton[i]);
+            }
+            else if(text.str().length() > limit && inputButton[i] && DELETE_KEY) {
+                deleteLastChar();
             }
         }
     }
@@ -99,8 +79,6 @@ public:
 private:
     Text textbox;
     ostringstream text;
-    bool isSelected = false;
-    bool hasLimit = true;
     int limit = 30;
 
     void inputLogic(int charTyped) {

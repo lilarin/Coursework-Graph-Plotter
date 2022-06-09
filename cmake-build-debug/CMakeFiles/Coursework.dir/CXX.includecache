@@ -677,16 +677,14 @@ SFML/Config.hpp
 C:/SFML/include/SFML/Window/WindowStyle.hpp
 
 C:/Users/User/Desktop/Coursework/Coursework/button.h
-unistd.h
--
+utility.h
+C:/Users/User/Desktop/Coursework/Coursework/utility.h
 
 C:/Users/User/Desktop/Coursework/Coursework/main.cpp
 SFML/Graphics.hpp
 -
 textbox.h
 C:/Users/User/Desktop/Coursework/Coursework/textbox.h
-string
--
 button.h
 C:/Users/User/Desktop/Coursework/Coursework/button.h
 shunting_yard.h
@@ -708,5 +706,9 @@ C:/Users/User/Desktop/Coursework/Coursework/textbox.h
 iostream
 -
 sstream
+-
+
+C:/Users/User/Desktop/Coursework/Coursework/utility.h
+unistd.h
 -
 

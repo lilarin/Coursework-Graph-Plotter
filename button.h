@@ -4,19 +4,13 @@
 
 #ifndef MAIN_CPP_BUTTON_H
 #define MAIN_CPP_BUTTON_H
-#include <unistd.h>
+#include "utility.h"
 
 class Button {
 public:
-
-    Button(string path, Vector2f position) {
+    Button(const string& path, Vector2f position) {  // Constructor for each button
         button.setPosition(position);
-        char temp[100];
-        string tempString = getcwd(temp, 256);
-        replace(projectDirectory.begin(), projectDirectory.end(), '\\', '/');
-        for (int i = 0; i < tempString.length()-18; i++) {
-            projectDirectory += tempString[i];
-        }
+        projectDirectory = getProjectDirectory();
         buttonT.loadFromFile(projectDirectory+path);
         button.setTexture(buttonT);
     }

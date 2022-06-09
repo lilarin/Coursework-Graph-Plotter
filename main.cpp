@@ -1,23 +1,22 @@
 #include <SFML/Graphics.hpp>
 #include "textbox.h"
-#include <string>
 #include "button.h"
 #include "shunting_yard.h"
-#include "utility.h"
 
 int main()
 {
+    // defining the variables
     string equation,cursorPosition;
     float width = 795, height = 720, renderWidth = 1280, renderHeight = 720,
     xOriginal = 0, yOriginal = 0, CenterX = (width/2), CenterY = (height/2),Scaler = 45, PanX, PanY;
     bool hold = false, isGridVisible = true, isThemeBlack = true, isCursorVisible = false;
 
-
+    // rendering window and apply framerate
     RenderWindow window;
     window.create(sf::VideoMode(renderWidth,renderHeight), "Graph plotter", Style::Close);
     window.setFramerateLimit(60);
 
-
+    // creating buttons using class "Button"
     Button button1("/textures/powX.png",{(renderWidth-468),70});
     Button button2("/textures/leftBracket.png",{(renderWidth-355),70});
     Button button3("/textures/rightBracket.png",{(renderWidth-241),70});
@@ -46,12 +45,19 @@ int main()
     Button button26("/textures/num0.png",{(renderWidth-355),400});
     Button button27("/textures/dot.png",{(renderWidth-241),400});
     Button button28("/textures/result.png",{(renderWidth-127),400});
-
     Button button29("/textures/check.png",{width+50,height-225});
     Button button30("/textures/check.png",{width+50,height-150});
     Button button31("/textures/cross.png",{width+50,height-75});
 
+    // defining font and text
+    Font font;
+    font.loadFromFile(getProjectDirectory()+"/fonts/arial.ttf");
 
+    Text text;
+    text.setFont(font);
+    text.setCharacterSize(24);
+
+    // creating objects that will be used for tasks
     RectangleShape bounds(Vector2f(renderWidth-width, renderHeight));
     bounds.setPosition({width,0});
 
@@ -61,9 +67,6 @@ int main()
     RectangleShape CursorIntersection(Vector2f(1.f, 2*height));
     CursorIntersection.setFillColor(Color(255,255,255));
 
-
-    Font font;
-    font.loadFromFile("C:/arial.ttf");
     Textbox textbox(26,Color::Black, true);
     textbox.setFont(font);
     textbox.setPosition({(renderWidth-458),30});
@@ -72,34 +75,30 @@ int main()
     inputField.setPosition({(renderWidth-468),20});
     inputField.setFillColor(Color(255,255,255));
 
-    Text text;
-    text.setFont(font);
-    text.setCharacterSize(24);
-
-
+    // creating a vertex array to store the coordinates of points
     VertexArray Graph(LinesStrip, 2);
 
-
+    // main cycle, while application is open
     while (window.isOpen())
     {
         Event event;
         while (window.pollEvent(event))
         {
             switch (event.type) {
-                case Event::Closed:
+                case Event::Closed:    // check for window status
                     window.close();
                     break;
-                case Event::MouseWheelMoved:            //will check for mouse scrolling
-                    if(Scaler == 1 && event.mouseWheel.delta <=-1)      //will not allow Scaler to become 0
-                        Scaler = -1;
-                    else if(Scaler == -1 && event.mouseWheel.delta >=1) //will not allow Scaler to become 0
-                        Scaler = 1;
+                case Event::MouseWheelMoved:    // check for mouse scrolling
+                    if(Scaler == 1 && event.mouseWheel.delta <=-1)          //------------------------------
+                        Scaler = -1;                                        //won`t allow Scaler to become 0
+                    else if(Scaler == -1 && event.mouseWheel.delta >=1)     //because it will break the code
+                        Scaler = 1;                                         //------------------------------
                     if(event.mouseWheel.delta<0)
                         Scaler-=Scaler*0.1;
                     if(event.mouseWheel.delta>0)
                         Scaler+=Scaler*0.1;
                     break;
-                case::Event::KeyPressed:
+                case::Event::KeyPressed:    // check for keyboard status
                     if (event.key.code == Keyboard::Enter) {
                         equation = textbox.getText();
                     }
@@ -109,16 +108,16 @@ int main()
                         CenterY = height/2;
                     }
                     if (event.key.code == sf::Keyboard::Up) {
-                        if(Scaler == -1 && event.mouseWheel.delta >=1) //will not allow Scaler to become 0
+                        if(Scaler == -1 && event.mouseWheel.delta >=1)
                             Scaler = 1;
                         Scaler+=Scaler*0.1f;
                     }
                     if (event.key.code == sf::Keyboard::Down) {
-                        if(Scaler == 1 && event.mouseWheel.delta <=-1)      //will not allow Scaler to become 0
+                        if(Scaler == 1 && event.mouseWheel.delta <=-1)
                             Scaler = -1;
                         Scaler-=Scaler*0.1f;
                     }
-                case Event::MouseButtonPressed:
+                case Event::MouseButtonPressed:    // check for mouse buttons status
                     if (event.mouseButton.button == Mouse::Right) {
                         xOriginal = event.mouseButton.x;
                         yOriginal = event.mouseButton.y;
@@ -222,7 +221,6 @@ int main()
                                 isThemeBlack = true;
                             }
                         }
-
                         if ( button30.getGlobalBounds().contains( mousePosF )) {
                             if (isGridVisible) {
                                 button30.setTexture("/textures/cross.png");
@@ -245,7 +243,7 @@ int main()
                         }
                     }
                     break;
-                    {case Event::MouseMoved:
+                    {case Event::MouseMoved:    // check for mouse position
 
                         if(hold) {
                             PanX = event.mouseMove.x - xOriginal;
@@ -346,21 +344,20 @@ int main()
                             button28.setColor( sf::Color( 64, 127, 246 ) );
                         } else button28.setColor( sf::Color( 255, 255, 255 ) );
                         break;}
-                case Event::MouseButtonReleased:
+                case Event::MouseButtonReleased:    // check if mouse released (right click)
                     if (event.mouseButton.button == Mouse::Right) hold = false;
                     break;
-                case Event::TextEntered:
+                case Event::TextEntered:// watching for the keyboard input
                     textbox.typedOn(event);
             }
         }
 
-
+        // checks bool value and apply colors for background after clearing it
         if (!isThemeBlack) window.clear(Color(240,240,240));
         else window.clear(Color::Black);
 
-
+        // creates additional scaler for scaling numbers and lines on the
         float FScaler = Scaler;
-
         while ( width / FScaler > 20) {
             FScaler *= 2;
         }
@@ -368,7 +365,7 @@ int main()
 
         VertexArray Line(LinesStrip, 2);
 
-
+        // checks bool value and apply colors for lines of the grid
         if (isThemeBlack) {
             Line[0].color = {255, 255, 255};
             Line[1].color = {255, 255, 255};
@@ -380,59 +377,60 @@ int main()
             text.setFillColor({0, 0, 0});
         }
 
-
-        Line[0].position = Vector2f(CenterX, (0));                    //creates the y axis
-        Line[1].position = Vector2f(CenterX, (height));                 // ''
-        window.draw(Line);                                             //draws the y axis
-        Line[0].position = Vector2f((0), CenterY);                    //creates the x axis
-        Line[1].position = Vector2f((width), CenterY);                 //''
+        // creates x and y axis
+        Line[0].position = Vector2f(CenterX, (0));
+        Line[1].position = Vector2f(CenterX, (height));
+        window.draw(Line);
+        Line[0].position = Vector2f((0), CenterY);
+        Line[1].position = Vector2f((width), CenterY);
         window.draw(Line);
 
-
-        for(float i = 0; i<=width/2+(-1*(CenterX-width/2)); i+=FScaler)    //creates the Positive X numbers on the grid
+        // creates the dimension (numbers) on the axes
+        for(float i = 0; i<=width/2+(-1*(CenterX-width/2)); i+=FScaler)
         {
             text.setString(intToString(i/Scaler));
             text.setPosition((i+CenterX),CenterY);
             window.draw(text);
         }
-        for(float i = 0; i>=-width/2+(-1*(CenterX-width/2)); i-=FScaler)     //creates the Negative X numbers on the grid
+        for(float i = 0; i>=-width/2+(-1*(CenterX-width/2)); i-=FScaler)
         {
             text.setString(intToString(i/Scaler));
             text.setPosition((i+CenterX),CenterY);
             window.draw(text);
         }
-        for(float i = 0; i<=height/2+(CenterY-height/2); i+=FScaler)           //creates the Positive Y numbers on the grid
+        for(float i = 0; i<=height/2+(CenterY-height/2); i+=FScaler)
         {
             text.setString(intToString(i/Scaler));
             text.setPosition(CenterX,CenterY-i);
             window.draw(text);
         }
-        for(float i = 0; i>=-height/2+(CenterY-height/2); i-=FScaler)          //creates the Negative Y numbers on the grid
+        for(float i = 0; i>=-height/2+(CenterY-height/2); i-=FScaler)
         {
             text.setString(intToString(i/Scaler));
             text.setPosition(CenterX,CenterY-i);
             window.draw(text);
         }
 
-        for(float i = 0; i <= width/2+(CenterX-width/2); i+=FScaler)                          //creates the lines by the numbers Negative X grid
+        // create lines on the axes
+        for(float i = 0; i <= width/2+(CenterX-width/2); i+=FScaler)
         {
             Line[0].position = Vector2f(CenterX-i, CenterY-(10));
             Line[1].position = Vector2f(CenterX-i, CenterY+(10));
             window.draw(Line);
         }
-        for(float i = 0; i <= width/2+(-1*(CenterX-width/2)); i+=FScaler)                          //creates the lines by the numbers Positive X grid
+        for(float i = 0; i <= width/2+(-1*(CenterX-width/2)); i+=FScaler)
         {
             Line[0].position = Vector2f(CenterX+i, CenterY-(10));
             Line[1].position = Vector2f(CenterX+i, CenterY+(10));
             window.draw(Line);
         }
-        for(float i = 0; i <= height/2+(-1*(CenterY-height/2)); i+=FScaler)                          //creates the lines by the numbers
+        for(float i = 0; i <= height/2+(-1*(CenterY-height/2)); i+=FScaler)
         {
             Line[0].position = Vector2f(CenterX-(10),CenterY+i);
             Line[1].position = Vector2f(CenterX+(10),CenterY+i);
             window.draw(Line);
         }
-        for(float i = 0; i <= height/2+((CenterY-height/2)); i+=FScaler)                          //creates the lines by the numbers
+        for(float i = 0; i <= height/2+((CenterY-height/2)); i+=FScaler)
         {
             Line[0].position = Vector2f(CenterX-(10),CenterY-i);
             Line[1].position = Vector2f(CenterX+(10),CenterY-i);
@@ -440,6 +438,7 @@ int main()
         }
 
         if (isGridVisible) {
+            // checks bool value and apply colors for lines of the grid
             if (isThemeBlack) {
                 Line[0].color = {50, 50, 50};
                 Line[1].color = {50, 50, 50};
@@ -448,25 +447,27 @@ int main()
                 Line[0].color = {200, 200, 200};
                 Line[1].color = {200, 200, 200};
             };
-            for(float i = 1; i <= width/2+(CenterX-width/2); i+=FScaler)                          //creates the lines by the numbers Negative X grid
+
+            // creates the horizontal and vertical lines of the grid
+            for(float i = 1; i <= width/2+(CenterX-width/2); i+=FScaler)
             {
                 Line[0].position = Vector2f(CenterX-i, 0);
                 Line[1].position = Vector2f(CenterX-i, height);
                 window.draw(Line);
             }
-            for(float i = 1; i <= width/2+(-1*(CenterX-width/2)); i+=FScaler)                          //creates the lines by the numbers Positive X grid
+            for(float i = 1; i <= width/2+(-1*(CenterX-width/2)); i+=FScaler)
             {
                 Line[0].position = Vector2f(CenterX+i, 0);
                 Line[1].position = Vector2f(CenterX+i, height);
                 window.draw(Line);
             }
-            for(float i = 1; i <= height/2+(-1*(CenterY-height/2)); i+=FScaler)                          //creates the lines by the numbers
+            for(float i = 1; i <= height/2+(-1*(CenterY-height/2)); i+=FScaler)
             {
                 Line[0].position = Vector2f(0,CenterY+i);
                 Line[1].position = Vector2f(width,CenterY+i);
                 window.draw(Line);
             }
-            for(float i = 1; i <= height/2+((CenterY-height/2)); i+=FScaler)                          //creates the lines by the numbers
+            for(float i = 1; i <= height/2+((CenterY-height/2)); i+=FScaler)
             {
                 Line[0].position = Vector2f(0,CenterY-i);
                 Line[1].position = Vector2f(width,CenterY-i);
@@ -474,6 +475,7 @@ int main()
             }
         }
 
+        // checks bool value and apply colors for graph and dot with coordinates (x,y)
         if (isThemeBlack) {
             Graph[0].color = {75, 251, 75};
             Graph[1].color = {75, 251, 75};
@@ -488,15 +490,16 @@ int main()
         float lastPositive = (width/2+(-1*(CenterX-width/2)))/Scaler,
         lastNegative = (-width/2+(-1*(CenterX-width/2)))/Scaler;
 
-
+        // if equation is not empty - continue
         if (!equation.empty()) {
-            for(float x = lastNegative; x < lastPositive; x += 1/Scaler)
+            for(float x = lastNegative; x < lastPositive; x += 1/Scaler) // 1/Scaler is responsible for the number of lines per unit
             {
+                // Creating points that will be connected in each cycle step and draw them
                 Graph[0].position = Vector2f((x*Scaler+CenterX),(evaluate(equation,x)*Scaler*-1+CenterY));
                 Graph[1].position = Vector2f(((x+1/Scaler)*Scaler+CenterX),(evaluate(equation,x+1/Scaler)*Scaler*-1+CenterY));
                 window.draw(Graph);
 
-
+                // checks bool value of drawing coordinates on the plot based on mouse position
                 if (isCursorVisible) {
                     if ( CursorIntersection.getGlobalBounds().contains(Graph[0].position) ) {
                         Vector2i mousePos = Mouse::getPosition( window );
@@ -518,18 +521,19 @@ int main()
 
                     }
                 }
-
             }
         }
 
-
+        // Checks bool and apply color for menu field background
         if (isThemeBlack) bounds.setFillColor(Color::Black);
         else bounds.setFillColor(Color(240,240,240));
 
+        // draw bounds for menu, input field for users input and background field for it
         window.draw(bounds);
         window.draw(inputField);
         textbox.drawTo(window);
 
+        // draw text for menu
         text.setString("Dark theme");
         text.setPosition({width+100,height-225});
         window.draw(text);
@@ -540,7 +544,7 @@ int main()
         text.setPosition({width+100,height-75});
         window.draw(text);
 
-
+        // Draw all buttons using class
         button1.drawButton(window);
         button2.drawButton(window);
         button3.drawButton(window);
@@ -577,7 +581,8 @@ int main()
         button31.drawButton(window);
 
 
+        // displays everything drawn
         window.display();
-        //displays everything drawn
+
     }
 }
