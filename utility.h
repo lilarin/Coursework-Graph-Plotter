@@ -12,11 +12,11 @@ float roundValue(float var) {   // round the number down to a hundredth
 }
 
 string intToString(float number) {
-    stringstream ss;// create a stringstream
-    string str;     // create string
-    ss << number;   // add number to the stream
-    ss >> str;      // push the contents onto a string
-    return str;     // return the string
+    stringstream ss;    // create a stringstream
+    string str;         // create string
+    ss << number;       // add number to the stream
+    ss >> str;          // push the contents onto a string
+    return str;         // return the string
 }
 
 //--------------------------------------------------------------
