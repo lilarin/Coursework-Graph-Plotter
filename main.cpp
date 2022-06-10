@@ -9,7 +9,7 @@ int main()
     string equation,cursorPosition;
     float width = 795, height = 720, renderWidth = 1280, renderHeight = 720,
     xOriginal = 0, yOriginal = 0, CenterX = (width/2), CenterY = (height/2),Scaler = 45, PanX, PanY;
-    bool hold = false, isGridVisible = true, isThemeBlack = true, isCursorVisible = false;
+    bool isLeftHold = false, isRightHold = false, isGridVisible = true, isThemeBlack = true, isCursorVisible = false;
 
     // rendering window and apply framerate
     RenderWindow window;
@@ -121,7 +121,7 @@ int main()
                     if (event.mouseButton.button == Mouse::Right) {
                         xOriginal = event.mouseButton.x;
                         yOriginal = event.mouseButton.y;
-                        hold = true;
+                        isRightHold = true;
                     }
                     if (event.mouseButton.button == Mouse::Left) {
                         Vector2i mousePos = Mouse::getPosition( window );
@@ -245,7 +245,7 @@ int main()
                     break;
                     {case Event::MouseMoved:    // check for mouse position
 
-                        if(hold) {
+                        if(isRightHold) {
                             PanX = event.mouseMove.x - xOriginal;
                             PanY = event.mouseMove.y - yOriginal;
                             CenterX+=PanX;
@@ -345,7 +345,7 @@ int main()
                         } else button28.setColor( sf::Color( 255, 255, 255 ) );
                         break;}
                 case Event::MouseButtonReleased:    // check if mouse released (right click)
-                    if (event.mouseButton.button == Mouse::Right) hold = false;
+                    if (event.mouseButton.button == Mouse::Right) isRightHold = false;
                     break;
                 case Event::TextEntered:// watching for the keyboard input
                     textbox.typedOn(event);
