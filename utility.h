@@ -4,6 +4,7 @@
 
 #ifndef MAIN_CPP_UTILITY_H
 #define MAIN_CPP_UTILITY_H
+#include <sstream>
 
 float roundValue(float var) {   // round the number down to a hundredth
     float value = (int)(var * 100 + .5);
