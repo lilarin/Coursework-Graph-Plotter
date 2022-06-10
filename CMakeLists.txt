@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.20)
 project(Coursework)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 add_executable(Coursework main.cpp textbox.h button.h shunting_yard.h utility.h)
 
