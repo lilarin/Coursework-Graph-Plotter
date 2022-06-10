@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "C:/Users/User/Desktop/Coursework/Coursework/main.cpp" "C:/Users/User/Desktop/Coursework/Coursework/cmake-build-debug/CMakeFiles/Coursework.dir/main.cpp.obj"
+  "C:/Users/User/Desktop/Coursework/main.cpp" "C:/Users/User/Desktop/Coursework/cmake-build-debug/CMakeFiles/Coursework.dir/main.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 
