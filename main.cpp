@@ -3,8 +3,7 @@
 #include "button.h"
 #include "shunting_yard.h"
 
-int main()
-{
+int main() {
     // defining the variables
     string equation,cursorPosition;
     float width = 795, height = 720, renderWidth = 1280, renderHeight = 720,
