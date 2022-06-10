@@ -1,3 +1,0 @@
-C:/Users/User/Desktop/Coursework/cmake-build-debug/CMakeFiles/rebuild_cache.dir
-C:/Users/User/Desktop/Coursework/cmake-build-debug/CMakeFiles/Coursework.dir
-C:/Users/User/Desktop/Coursework/cmake-build-debug/CMakeFiles/edit_cache.dir
