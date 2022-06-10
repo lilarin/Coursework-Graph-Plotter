@@ -179,7 +179,7 @@ vector <Token> negative_numbers(vector <Token>& tokens)
     return tokens_;
 }
 
-int check(const Token& symbol) {
+int getPriority(const Token& symbol) {
     if ((symbol.value == "+") || (symbol.value == "-")) return 1;
     if ((symbol.value == "*") || (symbol.value == "/")) return 2;
     if (symbol.value == "^") return 3;
@@ -202,7 +202,7 @@ queue <Token> RPN(const vector <Token>& tokens) {
         }
 
         if (symbol.type == Token_type::OPERATOR) {
-            while ((!stack_.empty()) && (stack_.top().value != "(") && ((stack_.top().type == Token_type::FUNCTION) || (check(stack_.top()) >= check(symbol))))
+            while ((!stack_.empty()) && (stack_.top().value != "(") && ((stack_.top().type == Token_type::FUNCTION) || (getPriority(stack_.top()) >= getPriority(symbol))))
             {
                 output.push(stack_.top());
                 stack_.pop();

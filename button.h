@@ -8,18 +8,17 @@
 
 class Button {
 public:
-    Button(const string& path, Vector2f position) {  // Constructor for each button
+    Button(const string& name, Vector2f position) {  // Constructor for each button
         button.setPosition(position);
-        projectDirectory = getProjectDirectory();
-        buttonT.loadFromFile(projectDirectory+path);
+        buttonT.loadFromFile(texturesDirectory+name);
         button.setTexture(buttonT);
     }
-    void setTexture(string path) {
-        buttonT.loadFromFile(projectDirectory+path);
+    void setTexture(const string& name) {
+        buttonT.loadFromFile(texturesDirectory+name);
         button.setTexture(buttonT);
     }
 
-    void scale() {
+    void setScale() {
         button.setScale(0.12,0.12);
     }
 
@@ -37,7 +36,7 @@ public:
 private:
     Sprite button;
     Texture buttonT;
-    string projectDirectory;
+    string texturesDirectory = "../textures/";
 };
 
 #endif //MAIN_CPP_BUTTON_H

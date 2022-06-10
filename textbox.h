@@ -38,7 +38,7 @@ public:
         window.draw(textbox);
     }
 
-    void typedOn(Event input) {
+    void typedButtonKeyboard(Event input) {
         int charTyped = input.text.unicode; // Converting text for check is it from latin alphabet
         if (charTyped < 128) {
             if (text.str().length() <= limit) {
@@ -50,7 +50,7 @@ public:
         }
     }
 
-    void typedButton(const string& inputButton) {
+    void typedButtonMenu(const string& inputButton) {
         int i = 0;
         while (i<inputButton.length()) {
             if (text.str().length() <= limit) {
@@ -71,10 +71,12 @@ public:
     }
 
     void deleteString() {
-        while (text.str().length() > 0) {
-            deleteLastChar();
+        if (text.str().length() != 0) {
+            while (text.str().length() > 0) {
+                deleteLastChar();
+            }
+            textbox.setString("_");
         }
-        textbox.setString("_");
     }
 
 private:

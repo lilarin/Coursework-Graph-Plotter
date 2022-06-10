@@ -17,41 +17,41 @@ int main()
     window.setFramerateLimit(60);
 
     // creating buttons using class "Button"
-    Button button1("/textures/powX.png",{(renderWidth-468),70});
-    Button button2("/textures/leftBracket.png",{(renderWidth-355),70});
-    Button button3("/textures/rightBracket.png",{(renderWidth-241),70});
-    Button button4("/textures/clean.png",{(renderWidth-127),70});
-    Button button5("/textures/sin.png",{(renderWidth-468),125});
-    Button button6("/textures/x.png",{(renderWidth-355),125});
-    Button button7("/textures/pi.png",{(renderWidth-241),125});
-    Button button8("/textures/cleanLastChar.png",{(renderWidth-127),125});
-    Button button9("/textures/cos.png",{(renderWidth-468),180});
-    Button button10("/textures/tan.png",{(renderWidth-355),180});
-    Button button11("/textures/cot.png",{(renderWidth-241),180});
-    Button button12("/textures/exp.png",{(renderWidth-127),180});
-    Button button13("/textures/division.png",{(renderWidth-468),235});
-    Button button14("/textures/num7.png",{(renderWidth-355),235});
-    Button button15("/textures/num8.png",{(renderWidth-241),235});
-    Button button16("/textures/num9.png",{(renderWidth-127),235});
-    Button button17("/textures/multiplication.png",{(renderWidth-468),290});
-    Button button18("/textures/num4.png",{(renderWidth-355),290});
-    Button button19("/textures/num5.png",{(renderWidth-241),290});
-    Button button20("/textures/num6.png",{(renderWidth-127),290});
-    Button button21("/textures/minus.png",{(renderWidth-468),345});
-    Button button22("/textures/num1.png",{(renderWidth-355),345});
-    Button button23("/textures/num2.png",{(renderWidth-241),345});
-    Button button24("/textures/num3.png",{(renderWidth-127),345});
-    Button button25("/textures/plus.png",{(renderWidth-468),400});
-    Button button26("/textures/num0.png",{(renderWidth-355),400});
-    Button button27("/textures/dot.png",{(renderWidth-241),400});
-    Button button28("/textures/result.png",{(renderWidth-127),400});
-    Button button29("/textures/check.png",{width+50,height-225});
-    Button button30("/textures/check.png",{width+50,height-150});
-    Button button31("/textures/cross.png",{width+50,height-75});
+    Button button1("powX.png",{(renderWidth-468),70});
+    Button button2("leftBracket.png",{(renderWidth-355),70});
+    Button button3("rightBracket.png",{(renderWidth-241),70});
+    Button button4("clean.png",{(renderWidth-127),70});
+    Button button5("sin.png",{(renderWidth-468),125});
+    Button button6("x.png",{(renderWidth-355),125});
+    Button button7("pi.png",{(renderWidth-241),125});
+    Button button8("cleanLastChar.png",{(renderWidth-127),125});
+    Button button9("cos.png",{(renderWidth-468),180});
+    Button button10("tan.png",{(renderWidth-355),180});
+    Button button11("cot.png",{(renderWidth-241),180});
+    Button button12("exp.png",{(renderWidth-127),180});
+    Button button13("division.png",{(renderWidth-468),235});
+    Button button14("num7.png",{(renderWidth-355),235});
+    Button button15("num8.png",{(renderWidth-241),235});
+    Button button16("num9.png",{(renderWidth-127),235});
+    Button button17("multiplication.png",{(renderWidth-468),290});
+    Button button18("num4.png",{(renderWidth-355),290});
+    Button button19("num5.png",{(renderWidth-241),290});
+    Button button20("num6.png",{(renderWidth-127),290});
+    Button button21("minus.png",{(renderWidth-468),345});
+    Button button22("num1.png",{(renderWidth-355),345});
+    Button button23("num2.png",{(renderWidth-241),345});
+    Button button24("num3.png",{(renderWidth-127),345});
+    Button button25("plus.png",{(renderWidth-468),400});
+    Button button26("num0.png",{(renderWidth-355),400});
+    Button button27("dot.png",{(renderWidth-241),400});
+    Button button28("result.png",{(renderWidth-127),400});
+    Button button29("check.png",{width+50,height-225});
+    Button button30("check.png",{width+50,height-150});
+    Button button31("cross.png",{width+50,height-75});
 
     // defining font and text
     Font font;
-    font.loadFromFile(getProjectDirectory()+"/fonts/arial.ttf");
+    font.loadFromFile("../fonts/arial.ttf");
 
     Text text;
     text.setFont(font);
@@ -127,85 +127,85 @@ int main()
                         Vector2i mousePos = Mouse::getPosition( window );
                         Vector2f mousePosF( static_cast<float>( mousePos.x ), static_cast<float>( mousePos.y ) );
                         if ( button1.getGlobalBounds().contains( mousePosF )) {
-                            textbox.typedButton("^");
+                            textbox.typedButtonMenu("^");
                         }
                         if ( button2.getGlobalBounds().contains( mousePosF )) {
-                            textbox.typedButton("(");
+                            textbox.typedButtonMenu("(");
                         }
                         if ( button3.getGlobalBounds().contains( mousePosF )) {
-                            textbox.typedButton(")");
+                            textbox.typedButtonMenu(")");
                         }
                         if ( button4.getGlobalBounds().contains( mousePosF )) {
                             textbox.deleteString();
                         }
                         if ( button5.getGlobalBounds().contains( mousePosF )) {
-                            textbox.typedButton("sin");
+                            textbox.typedButtonMenu("sin");
                         }
                         if ( button6.getGlobalBounds().contains( mousePosF )) {
-                            textbox.typedButton("x");
+                            textbox.typedButtonMenu("x");
                         }
                         if ( button7.getGlobalBounds().contains( mousePosF )) {
-                            textbox.typedButton("pi");
+                            textbox.typedButtonMenu("pi");
                         }
                         if ( button8.getGlobalBounds().contains( mousePosF )) {
                             textbox.deleteChar();
                         }
                         if ( button9.getGlobalBounds().contains( mousePosF )) {
-                            textbox.typedButton("cos");
+                            textbox.typedButtonMenu("cos");
                         }
                         if ( button10.getGlobalBounds().contains( mousePosF )) {
-                            textbox.typedButton("tan");
+                            textbox.typedButtonMenu("tan");
                         }
                         if ( button11.getGlobalBounds().contains( mousePosF )) {
-                            textbox.typedButton("cot");
+                            textbox.typedButtonMenu("cot");
                         }
                         if ( button12.getGlobalBounds().contains( mousePosF )) {
-                            textbox.typedButton("e");
+                            textbox.typedButtonMenu("e");
                         }
                         if ( button13.getGlobalBounds().contains( mousePosF )) {
-                            textbox.typedButton("/");
+                            textbox.typedButtonMenu("/");
                         }
                         if ( button14.getGlobalBounds().contains( mousePosF )) {
-                            textbox.typedButton("7");
+                            textbox.typedButtonMenu("7");
                         }
                         if ( button15.getGlobalBounds().contains( mousePosF )) {
-                            textbox.typedButton("8");
+                            textbox.typedButtonMenu("8");
                         }
                         if ( button16.getGlobalBounds().contains( mousePosF )) {
-                            textbox.typedButton("9");
+                            textbox.typedButtonMenu("9");
                         }
                         if ( button17.getGlobalBounds().contains( mousePosF )) {
-                            textbox.typedButton("*");
+                            textbox.typedButtonMenu("*");
                         }
                         if ( button18.getGlobalBounds().contains( mousePosF )) {
-                            textbox.typedButton("4");
+                            textbox.typedButtonMenu("4");
                         }
                         if ( button19.getGlobalBounds().contains( mousePosF )) {
-                            textbox.typedButton("5");
+                            textbox.typedButtonMenu("5");
                         }
                         if ( button20.getGlobalBounds().contains( mousePosF )) {
-                            textbox.typedButton("6");
+                            textbox.typedButtonMenu("6");
                         }
                         if ( button21.getGlobalBounds().contains( mousePosF )) {
-                            textbox.typedButton("-");
+                            textbox.typedButtonMenu("-");
                         }
                         if ( button22.getGlobalBounds().contains( mousePosF )) {
-                            textbox.typedButton("1");
+                            textbox.typedButtonMenu("1");
                         }
                         if ( button23.getGlobalBounds().contains( mousePosF )) {
-                            textbox.typedButton("2");
+                            textbox.typedButtonMenu("2");
                         }
                         if ( button24.getGlobalBounds().contains( mousePosF )) {
-                            textbox.typedButton("3");
+                            textbox.typedButtonMenu("3");
                         }
                         if ( button25.getGlobalBounds().contains( mousePosF )) {
-                            textbox.typedButton("+");
+                            textbox.typedButtonMenu("+");
                         }
                         if ( button26.getGlobalBounds().contains( mousePosF )) {
-                            textbox.typedButton("0");
+                            textbox.typedButtonMenu("0");
                         }
                         if ( button27.getGlobalBounds().contains( mousePosF )) {
-                            textbox.typedButton(".");
+                            textbox.typedButtonMenu(".");
                         }
                         if ( button28.getGlobalBounds().contains( mousePosF )) {
                             equation = textbox.getText();
@@ -213,31 +213,31 @@ int main()
 
                         if ( button29.getGlobalBounds().contains( mousePosF )) {
                             if (isThemeBlack) {
-                                button29.setTexture("/textures/cross.png");
+                                button29.setTexture("cross.png");
                                 isThemeBlack = false;
                             }
                             else {
-                                button29.setTexture("/textures/check.png");
+                                button29.setTexture("check.png");
                                 isThemeBlack = true;
                             }
                         }
                         if ( button30.getGlobalBounds().contains( mousePosF )) {
                             if (isGridVisible) {
-                                button30.setTexture("/textures/cross.png");
+                                button30.setTexture("cross.png");
                                 isGridVisible = false;
                             }
                             else {
-                                button30.setTexture("/textures/check.png");
+                                button30.setTexture("check.png");
                                 isGridVisible = true;
                             }
                         }
                         if ( button31.getGlobalBounds().contains( mousePosF )) {
                             if (isCursorVisible) {
-                                button31.setTexture("/textures/cross.png");
+                                button31.setTexture("cross.png");
                                 isCursorVisible = false;
                             }
                             else {
-                                button31.setTexture("/textures/check.png");
+                                button31.setTexture("check.png");
                                 isCursorVisible = true;
                             }
                         }
@@ -348,7 +348,7 @@ int main()
                     if (event.mouseButton.button == Mouse::Right) isRightHold = false;
                     break;
                 case Event::TextEntered:// watching for the keyboard input
-                    textbox.typedOn(event);
+                    textbox.typedButtonKeyboard(event);
             }
         }
 
@@ -367,14 +367,14 @@ int main()
 
         // checks bool value and apply colors for lines of the grid
         if (isThemeBlack) {
-            Line[0].color = {255, 255, 255};
-            Line[1].color = {255, 255, 255};
-            text.setFillColor({255, 255, 255});
+            Line[0].color = {215, 215, 215};
+            Line[1].color = {215, 215, 215};
+            text.setFillColor({215, 215, 215});
         }
         else {
-            Line[0].color = {0, 0, 0};
-            Line[1].color = {0, 0, 0};
-            text.setFillColor({0, 0, 0});
+            Line[0].color = {60, 60, 60};
+            Line[1].color = {60, 60, 60};
+            text.setFillColor({40, 40, 40});
         }
 
         // creates x and y axis
@@ -396,19 +396,25 @@ int main()
         {
             text.setString(intToString(i/Scaler));
             text.setPosition((i+CenterX),CenterY);
-            window.draw(text);
+            if (i != 0) {
+                window.draw(text);
+            }
         }
         for(float i = 0; i<=height/2+(CenterY-height/2); i+=FScaler)
         {
             text.setString(intToString(i/Scaler));
             text.setPosition(CenterX,CenterY-i);
-            window.draw(text);
+            if (i != 0) {
+                window.draw(text);
+            }
         }
         for(float i = 0; i>=-height/2+(CenterY-height/2); i-=FScaler)
         {
             text.setString(intToString(i/Scaler));
             text.setPosition(CenterX,CenterY-i);
-            window.draw(text);
+            if (i != 0) {
+                window.draw(text);
+            }
         }
 
         // create lines on the axes
@@ -480,11 +486,13 @@ int main()
             Graph[0].color = {75, 251, 75};
             Graph[1].color = {75, 251, 75};
             Cursor.setFillColor({75, 251, 75});
+            text.setFillColor({255, 255, 255});
         }
         else {
             Graph[0].color = Color::Red;
             Graph[1].color = Color::Red;
             Cursor.setFillColor(Color::Red);
+            text.setFillColor({0, 0, 0});
         }
 
         float lastPositive = (width/2+(-1*(CenterX-width/2)))/Scaler,
@@ -573,9 +581,9 @@ int main()
         button26.drawButton(window);
         button27.drawButton(window);
         button28.drawButton(window);
-        button29.scale();
-        button30.scale();
-        button31.scale();
+        button29.setScale();
+        button30.setScale();
+        button31.setScale();
         button29.drawButton(window);
         button30.drawButton(window);
         button31.drawButton(window);
