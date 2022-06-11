@@ -10,6 +10,3 @@ Application interface:
 ![alt](https://i.imgur.com/6EwN629.png)
 
 ![alt](https://i.imgur.com/ko47VvW.png)
-</br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br></br>
-PS:</br>
-![alt](https://i.imgur.com/sjJhSnW.png)
