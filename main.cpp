@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
-#include "headers/textbox.h"
-#include "headers/button.h"
-#include "headers/shunting_yard.h"
+#include "textbox.h"
+#include "button.h"
+#include "shunting_yard.h"
 
 int main() {
     // defining the variables
