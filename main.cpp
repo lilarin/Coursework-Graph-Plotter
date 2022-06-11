@@ -7,7 +7,7 @@ int main() {
     // defining the variables
     string equation,cursorPosition;
     float width = 795, height = 720, renderWidth = 1280, renderHeight = 720,
-    xOriginal = 0, yOriginal = 0, CenterX = (width/2), CenterY = (height/2),Scaler = 45, PanX, PanY;
+            xOriginal = 0, yOriginal = 0, CenterX = (width/2), CenterY = (height/2),Scaler = 45, PanX, PanY;
     bool isRightHold = false, isGridVisible = true, isThemeBlack = true, isCursorVisible = false;
 
     // rendering window and apply framerate
@@ -242,14 +242,14 @@ int main() {
                     break;
                     {case Event::MouseMoved:    // check for mouse position
 
-                        if(isRightHold) {
-                            PanX = event.mouseMove.x - xOriginal;
-                            PanY = event.mouseMove.y - yOriginal;
-                            CenterX+=PanX;
-                            CenterY+=PanY;
-                            xOriginal = event.mouseMove.x;
-                            yOriginal = event.mouseMove.y;
-                        }
+                            if(isRightHold) {
+                                PanX = event.mouseMove.x - xOriginal;
+                                PanY = event.mouseMove.y - yOriginal;
+                                CenterX+=PanX;
+                                CenterY+=PanY;
+                                xOriginal = event.mouseMove.x;
+                                yOriginal = event.mouseMove.y;
+                            }
                         Vector2i mousePos = Mouse::getPosition( window );
                         Vector2f mousePosF( static_cast<float>( mousePos.x ), static_cast<float>( mousePos.y ) );
 
@@ -493,7 +493,7 @@ int main() {
         }
 
         float lastPositive = (width/2+(-1*(CenterX-width/2)))/Scaler,
-        lastNegative = (-width/2+(-1*(CenterX-width/2)))/Scaler;
+                lastNegative = (-width/2+(-1*(CenterX-width/2)))/Scaler;
 
         // if equation is not empty - continue
         if (!equation.empty()) {

@@ -8,7 +8,7 @@ add_executable(Coursework main.cpp textbox.h button.h shunting_yard.h utility.h)
 
 set(SFML_STATIC_LIBRARIES TRUE)
 set(SFML_DIR ./SFML/lib/cmake/SFML)
-find_package(SFML COMPONENTS window graphics REQUIRED)
+find_package(SFML COMPONENTS system window graphics REQUIRED)
 
 include_directories(./SFML/include)
-target_link_libraries(Coursework sfml-window sfml-graphics)
+target_link_libraries(Coursework sfml-system sfml-window sfml-graphics)
