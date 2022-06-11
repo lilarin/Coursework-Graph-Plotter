@@ -4,7 +4,7 @@ To use the program, [download](https://github.com/lilarin/Coursework-Graph-Plott
 the file, unzip it and run the application through the shortcut.
 </br></br>
 <h3>Application Features:</h3>
-- This program can graph functions with: sin, cos, tan, cot, sqrt, ln and negative numbers</br>
+- This program can graph functions with: sin(), cos(), tan(), cot(), sqrt(), ln() and negative numbers</br>
 - You can scale the plane with the mouse scroll and the arrows on the keyboard</br>
 - The plane can be moved by simultaneously pressing the right mouse button and moving the cursor</br>
 - You can enter data both from the keyboard and from the menu</br>
