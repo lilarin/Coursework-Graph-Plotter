@@ -4,4 +4,4 @@
 
 
 PS:</br>
-![alt text](https://i.imgur.com/sjJhSnW.png)
+![bruh](https://i.imgur.com/sjJhSnW.png)
