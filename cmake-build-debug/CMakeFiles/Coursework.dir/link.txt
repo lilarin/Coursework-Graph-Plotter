@@ -1,0 +1,3 @@
+"C:\Program Files\JetBrains\CLion 2021.2.1\bin\cmake\win\bin\cmake.exe" -E rm -f CMakeFiles\Coursework.dir/objects.a
+C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\ar.exe cr CMakeFiles\Coursework.dir/objects.a @CMakeFiles\Coursework.dir\objects1.rsp
+C:\PROGRA~1\MINGW-~1\X86_64~1.0-P\mingw64\bin\G__~1.EXE  -static-libstdc++ -static-libgcc -g -Wl,--whole-archive CMakeFiles\Coursework.dir/objects.a -Wl,--no-whole-archive -o Coursework.exe -Wl,--out-implib,libCoursework.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\Coursework.dir\linklibs.rsp
