@@ -1,7 +1,6 @@
-# Курсова робота на тему: </br>"Програма побудови графіків по введеним функціям"
-<h2>Студента групи ДА-12 ІПСА при КПІ ім. Ігоря Сікорського.</br>
-Краковича Павла Дмитровича</h2>
+# Graphing program for entered functions
 
+<h2>To use the program, download the file **Graph plotter.zip**, unzip it and run the application through the shortcut.</h2>
 
 
 
