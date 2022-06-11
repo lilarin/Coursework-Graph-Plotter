@@ -517,7 +517,7 @@ int main() {
                         Cursor.setPosition(cursorPos);
 
                         cursorPosition = "( ";
-                        cursorPosition += intToString(roundValue((mousePos.x-width/2+(-1*(CenterX-width/2)))/Scaler));
+                        cursorPosition += intToString(roundValue((mousePos.x+1-width/2+(-1*(CenterX-width/2)))/Scaler));
                         cursorPosition += " , ";
                         cursorPosition += intToString(roundValue((-(Graph[0].position.y)+height/2-(-1*(CenterY-height/2)))/Scaler));
                         cursorPosition += " )";

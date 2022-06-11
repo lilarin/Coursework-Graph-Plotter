@@ -1,19 +1,24 @@
 "C:\Program Files\JetBrains\CLion 2021.2.1\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_DEPENDS_USE_COMPILER=FALSE -G "CodeBlocks - MinGW Makefiles" C:\Users\User\Desktop\Coursework
-CMake Error at CMakeLists.txt:11 (find_package):
-  By not providing "FindSFML.cmake" in CMAKE_MODULE_PATH this project has
-  asked CMake to find a package configuration file provided by "SFML", but
-  CMake did not find one.
+CMake Error at SFML/lib/cmake/SFML/SFMLStaticTargets.cmake:147 (message):
+  The imported target "sfml-network" references the file
 
-  Could not find a package configuration file provided by "SFML" with any of
-  the following names:
+     "C:/Users/User/Desktop/Coursework/SFML/lib/libsfml-network-s-d.a"
 
-    SFMLConfig.cmake
-    sfml-config.cmake
+  but this file does not exist.  Possible reasons include:
 
-  Add the installation prefix of "SFML" to CMAKE_PREFIX_PATH or set
-  "SFML_DIR" to a directory containing one of the above files.  If "SFML"
-  provides a separate development package or SDK, be sure it has been
-  installed.
+  * The file was deleted, renamed, or moved to another location.
+
+  * An install or uninstall procedure did not complete successfully.
+
+  * The installation package was faulty and contained
+
+     "C:/Users/User/Desktop/Coursework/SFML/lib/cmake/SFML/SFMLStaticTargets.cmake"
+
+  but not all the files it references.
+
+Call Stack (most recent call first):
+  SFML/lib/cmake/SFML/SFMLConfig.cmake:116 (include)
+  CMakeLists.txt:11 (find_package)
 
 
 -- Configuring incomplete, errors occurred!
