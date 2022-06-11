@@ -88,14 +88,12 @@ int main() {
                     window.close();
                     break;
                 case Event::MouseWheelMoved:    // check for mouse scrolling
-                    if(Scaler == 1 && event.mouseWheel.delta <=-1)          //------------------------------
-                        Scaler = -1;                                        //won`t allow Scaler to become 0
-                    else if(Scaler == -1 && event.mouseWheel.delta >=1)     //because it will break the code
-                        Scaler = 1;                                         //------------------------------
-                    if(event.mouseWheel.delta<0)
-                        Scaler-=Scaler*0.1;
-                    if(event.mouseWheel.delta>0)
-                        Scaler+=Scaler*0.1;
+                    if (event.mouseWheel.delta < 0 && Scaler > 6) {
+                        Scaler -= Scaler * 0.1;
+                    }
+                    if (event.mouseWheel.delta > 0 && Scaler < 300) {
+                        Scaler += Scaler * 0.1;
+                    }
                     break;
                 case::Event::KeyPressed:    // check for keyboard status
                     if (event.key.code == Keyboard::Enter) {
@@ -504,7 +502,9 @@ int main() {
                 // Creating points that will be connected in each cycle step and draw them
                 Graph[0].position = Vector2f((x*Scaler+CenterX),(evaluate(equation,x)*Scaler*-1+CenterY));
                 Graph[1].position = Vector2f(((x+1/Scaler)*Scaler+CenterX),(evaluate(equation,x+1/Scaler)*Scaler*-1+CenterY));
-                window.draw(Graph);
+                if (fabs(Graph[1].position.y) < 1000) {
+                    window.draw(Graph);
+                }
 
                 // checks bool value of drawing coordinates on the plot based on mouse position
                 if (isCursorVisible) {

@@ -164,7 +164,7 @@ vector<Token> parseNegativeNumbers(vector <Token>& tokens)
     return tokens_;
 }
 
-int getPriority(const Token& symbol) { // here we get precision for the operators
+int getPrecision(const Token& symbol) { // here we get precision for the operators
     if ((symbol.value == "+") || (symbol.value == "-")) return 1;
     if ((symbol.value == "*") || (symbol.value == "/")) return 2;
     if (symbol.value == "^") return 3;
@@ -189,7 +189,7 @@ queue <Token> RPN(const vector <Token>& tokens) { // main part of the Shunting-Y
         // this part is responsible for moving the higher-priority operators
         // on the stack and the lower-priority ones to the queue
         if (symbol.type == Token_type::OPERATOR) {
-            while ((!stack_.empty()) && (stack_.top().value != "(") && ((stack_.top().type == Token_type::FUNCTION) || (getPriority(stack_.top()) >= getPriority(symbol))))
+            while ((!stack_.empty()) && (stack_.top().value != "(") && ((stack_.top().type == Token_type::FUNCTION) || (getPrecision(stack_.top()) >= getPrecision(symbol))))
             {
                 output.push(stack_.top());
                 stack_.pop();
@@ -220,8 +220,8 @@ queue <Token> RPN(const vector <Token>& tokens) { // main part of the Shunting-Y
     return output;
 }
 
-float stack_calc(queue <Token>& rpn_tokens, double x) { // easiest part. here the values are taken out one by one,
-    float result;                                       // and the solution stays on the stack at the top
+double stack_calc(queue<Token>& rpn_tokens, double x) { // easiest part. here the values are taken out one by one,
+    double result;                                       // and the solution stays on the stack at the top
     stack <double> stack_;
 
     while (!rpn_tokens.empty()) {
