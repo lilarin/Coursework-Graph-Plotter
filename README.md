@@ -12,6 +12,7 @@ the file, unzip it and run the application through the shortcut.
 </br></br>
 <h3>Application interface:</h3>
 </br>
+
 ![alt](https://i.imgur.com/6EwN629.png)
 
 ![alt](https://i.imgur.com/ko47VvW.png)
