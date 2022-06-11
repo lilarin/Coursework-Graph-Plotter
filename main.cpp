@@ -7,7 +7,7 @@ int main() {
     // defining the variables
     string equation,cursorPosition;
     float width = 795, height = 720, renderWidth = 1280, renderHeight = 720,
-            xOriginal = 0, yOriginal = 0, CenterX = (width/2), CenterY = (height/2),Scaler = 45, PanX, PanY;
+    xOriginal = 0, yOriginal = 0, CenterX = (width/2), CenterY = (height/2),Scaler = 45, PanX, PanY;
     bool isRightHold = false, isGridVisible = true, isThemeBlack = true, isCursorVisible = false;
 
     // rendering window and apply framerate
