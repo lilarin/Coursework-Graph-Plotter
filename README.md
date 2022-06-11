@@ -3,5 +3,5 @@
 </br>Краковича Павла Дмитровича</h2>
 
 
-<h4> PS: </h4>
+PS:
 ![alt text](https://i.imgur.com/sjJhSnW.png)
