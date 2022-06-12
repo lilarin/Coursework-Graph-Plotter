@@ -1,7 +1,7 @@
 # Application for drawing graphs of entered functions
 
 To use the program, [download](https://github.com/lilarin/Coursework-Graph-Plotter/raw/main/Graph%20plotter.zip) 
-the file, unzip it and run the application through the shortcut.
+the file, unzip it into any directory and run the application through the shortcut.
 </br></br>
 <h3>Application Features:</h3>
 - This program can graph functions with: sin, cos, tan, cot, sqrt, ln and negative numbers</br>
