@@ -36,10 +36,6 @@ vector<Token> parse(const string& expression)
     while (i < expression.size()) { // while is not end of the string
         char character = expression[i];
 
-        if (character == ' ') { // if char is space - continue
-            continue;
-        }
-
         if (isdigit(character) || character == '.') { // for decimals
             digits.push_back(character);
         }
@@ -224,7 +220,7 @@ double stack_calc(queue<Token>& rpn_tokens, double x) { // easiest part. here th
     double result;                                       // and the solution stays on the stack at the top
     stack <double> stack_;
 
-    while (!rpn_tokens.empty()) {
+        while (!rpn_tokens.empty()) {
         Token token = rpn_tokens.front();
 
         if (token.type == Token_type::NUMBER) {
@@ -274,15 +270,6 @@ double stack_calc(queue<Token>& rpn_tokens, double x) { // easiest part. here th
             if (token.value == "^") {
                 stack_.push(pow(b, a));
             }
-        }
-        else if (token.type == Token_type::FUNCTION && token.value == "log") {
-            double a = stack_.top();
-            stack_.pop();
-
-            double b = stack_.top();
-            stack_.pop();
-
-            stack_.push(log(a) / log(b));
         }
         else if (token.type == Token_type::FUNCTION) {
             double c = stack_.top();
