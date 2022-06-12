@@ -16,4 +16,5 @@ the file, unzip it into any directory and run the application through the shortc
 
 ![alt](https://i.imgur.com/ko47VvW.png)
 
-https://i.imgur.com/DXS5SUQ.mp4
+[![Watch the video](https://i.imgur.com/zc3mnah.jpg)](https://i.imgur.com/DXS5SUQ.mp4)
+
