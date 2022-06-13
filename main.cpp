@@ -1,7 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "textbox.h"
 #include "button.h"
-#include "shunting_yard.h"
 
 int main() {
     // defining the variables
@@ -14,6 +13,10 @@ int main() {
     RenderWindow window;
     window.create(sf::VideoMode(renderWidth,renderHeight), "Graph plotter", Style::Close);
     window.setFramerateLimit(60);
+
+    // creating a vertex array to store the coordinates of points of lines and graph
+    VertexArray Line(LinesStrip, 2);
+    VertexArray Graph(LinesStrip, 2);
 
     // creating buttons using class "Button"
     Button button1("powX.png",{(renderWidth-468),70});
@@ -73,9 +76,6 @@ int main() {
     RectangleShape inputField(Vector2f(456.f, 50.f));
     inputField.setPosition({(renderWidth-468),20});
     inputField.setFillColor(Color(255,255,255));
-
-    // creating a vertex array to store the coordinates of points
-    VertexArray Graph(LinesStrip, 2);
 
     // main cycle, while application is open
     while (window.isOpen())
@@ -360,7 +360,7 @@ int main() {
         }
 
 
-        VertexArray Line(LinesStrip, 2);
+
 
         // checks bool value and apply colors for lines of the grid
         if (isThemeBlack) {
@@ -385,13 +385,13 @@ int main() {
         // creates the dimension (numbers) on the axes
         for(float i = 0; i<=width/2+(-1*(CenterX-width/2)); i+=FScaler)
         {
-            text.setString(intToString(i/Scaler));
+            text.setString(numberToString(i/Scaler));
             text.setPosition((i+CenterX),CenterY);
             window.draw(text);
         }
         for(float i = 0; i>=-width/2+(-1*(CenterX-width/2)); i-=FScaler)
         {
-            text.setString(intToString(i/Scaler));
+            text.setString(numberToString(i/Scaler));
             text.setPosition((i+CenterX),CenterY);
             if (i != 0) {
                 window.draw(text);
@@ -399,7 +399,7 @@ int main() {
         }
         for(float i = 0; i<=height/2+(CenterY-height/2); i+=FScaler)
         {
-            text.setString(intToString(i/Scaler));
+            text.setString(numberToString(i/Scaler));
             text.setPosition(CenterX,CenterY-i);
             if (i != 0) {
                 window.draw(text);
@@ -407,7 +407,7 @@ int main() {
         }
         for(float i = 0; i>=-height/2+(CenterY-height/2); i-=FScaler)
         {
-            text.setString(intToString(i/Scaler));
+            text.setString(numberToString(i/Scaler));
             text.setPosition(CenterX,CenterY-i);
             if (i != 0) {
                 window.draw(text);
@@ -517,9 +517,9 @@ int main() {
                         Cursor.setPosition(cursorPos);
 
                         cursorPosition = "( ";
-                        cursorPosition += intToString(roundValue((mousePos.x+1-width/2+(-1*(CenterX-width/2)))/Scaler));
+                        cursorPosition += numberToString(roundValue((mousePos.x+1-width/2+(-1*(CenterX-width/2)))/Scaler));
                         cursorPosition += " , ";
-                        cursorPosition += intToString(roundValue((-(Graph[0].position.y)+height/2-(-1*(CenterY-height/2)))/Scaler));
+                        cursorPosition += numberToString(roundValue((-(Graph[0].position.y)+height/2-(-1*(CenterY-height/2)))/Scaler));
                         cursorPosition += " )";
 
                         text.setString(cursorPosition);

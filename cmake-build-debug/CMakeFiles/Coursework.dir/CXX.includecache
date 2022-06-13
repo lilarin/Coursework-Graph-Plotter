@@ -687,8 +687,6 @@ textbox.h
 C:/Users/User/Desktop/Coursework/textbox.h
 button.h
 C:/Users/User/Desktop/Coursework/button.h
-shunting_yard.h
-C:/Users/User/Desktop/Coursework/shunting_yard.h
 
 C:/Users/User/Desktop/Coursework/shunting_yard.h
 iostream
@@ -711,4 +709,6 @@ sstream
 C:/Users/User/Desktop/Coursework/utility.h
 sstream
 -
+shunting_yard.h
+C:/Users/User/Desktop/Coursework/shunting_yard.h
 
