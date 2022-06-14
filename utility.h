@@ -7,9 +7,8 @@
 #include <sstream>
 #include "shunting_yard.h"
 
-float roundValue(float number) {   // round the number down to a hundredth
-    float value = (int)(number * 100 + .5);
-    return value / 100;
+float roundValue(float number) {   // round the number
+    return round(number * 10) / 10;
 }
 
 string numberToString(float number) {
