@@ -502,9 +502,12 @@ int main() {
                 // Creating points that will be connected in each cycle step and draw them
                 Graph[0].position = Vector2f((x*Scaler+CenterX),(evaluate(equation,x)*Scaler*-1+CenterY));
                 Graph[1].position = Vector2f(((x+1/Scaler)*Scaler+CenterX),(evaluate(equation,x+1/Scaler)*Scaler*-1+CenterY));
-                if (fabs(Graph[1].position.y) < 1000) {
+
+                if (fabs(Graph[0].position.y) < 1000 && fabs(Graph[1].position.y) < 1000) {
                     window.draw(Graph);
                 }
+
+//                window.draw(Graph);
 
                 // checks bool value of drawing coordinates on the plot based on mouse position
                 if (isCursorVisible) {
